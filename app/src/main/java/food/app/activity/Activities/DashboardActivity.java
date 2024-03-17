@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+
+import food.app.activity.FoodItemAdapter;
+import food.app.activity.R;
 
 public class DashboardActivity extends AppCompatActivity {
 

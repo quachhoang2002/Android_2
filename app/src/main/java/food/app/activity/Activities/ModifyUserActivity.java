@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 
 import static food.app.activity.R.layout.activity_modifyuser;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import food.app.activity.R;
 
 public class ModifyUserActivity extends AppCompatActivity {
 

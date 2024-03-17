@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -6,6 +6,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
+
+import food.app.activity.CartAdapter;
+import food.app.activity.CartItem;
+import food.app.activity.R;
 
 public class CartActivity extends AppCompatActivity {
 
