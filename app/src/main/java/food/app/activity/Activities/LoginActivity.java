@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.os.Bundle;
 
@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+
+import food.app.activity.FragmentAdapter;
+import food.app.activity.R;
 
 public class LoginActivity extends AppCompatActivity {
 

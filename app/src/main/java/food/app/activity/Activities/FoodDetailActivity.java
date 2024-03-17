@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import food.app.activity.R;
 
 public class FoodDetailActivity extends AppCompatActivity {
 

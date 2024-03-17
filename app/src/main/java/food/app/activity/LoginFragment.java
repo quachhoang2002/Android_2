@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import food.app.activity.Activities.DashboardActivity;
+
 public class LoginFragment extends Fragment {
 
     public LoginFragment() {

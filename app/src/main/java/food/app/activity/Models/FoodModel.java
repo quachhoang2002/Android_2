@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Models;
 
 public class FoodModel {
 

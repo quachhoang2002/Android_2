@@ -1,10 +1,12 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import food.app.activity.R;
 
 public class GetStartedActivity extends AppCompatActivity {
 

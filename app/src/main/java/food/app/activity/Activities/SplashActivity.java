@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import food.app.activity.R;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -2,40 +2,39 @@ package food.app.activity;
 
 public class FoodItemModel {
 
-    int food_image;
-    String food_name, food_price;
+    int id;
+    String name, description;
 
     public FoodItemModel() {
     }
 
-    public FoodItemModel(int food_image, String food_name, String food_price) {
-        this.food_image = food_image;
-        this.food_name = food_name;
-        this.food_price = food_price;
+    public FoodItemModel(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
-    public int getFood_image() {
-        return food_image;
+    public int getId() {
+        return id;
     }
 
-    public void setFood_image(int food_image) {
-        this.food_image = food_image;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getFood_name() {
-        return food_name;
+    public String getName() {
+        return name;
     }
 
-    public void setFood_name(String food_name) {
-        this.food_name = food_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFood_price() {
-        return food_price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFood_price(String food_price) {
-        this.food_price = food_price;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
 }
