@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import food.app.activity.CartAdapter;
-import food.app.activity.CartItem;
+import food.app.activity.Adapters.CartAdapter;
+import food.app.activity.Models.CartItemModel;
 import food.app.activity.R;
 
 public class CartActivity extends AppCompatActivity {
@@ -19,10 +19,10 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         // Sample data
-        List<CartItem> productList = new ArrayList<>();
-        productList.add(new CartItem(R.mipmap.ic_launcher, "Product 1", 10.99, 2));
-        productList.add(new CartItem(R.mipmap.ic_launcher, "Product 2", 24.99, 1));
-        productList.add(new CartItem(R.mipmap.ic_launcher, "Product 3", 5.99, 3));
+        List<CartItemModel> productList = new ArrayList<>();
+        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 1", 10.99, 2));
+        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 2", 24.99, 1));
+        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 3", 5.99, 3));
 
         // Set up the adapter
         CartAdapter productAdapter = new CartAdapter(this, productList);

@@ -2,16 +2,16 @@ package food.app.activity.Models;
 
 import java.util.List;
 
-public class FoodResponse {
+public class CategoryResponse {
     private String status;
     private String message;
-    private List<FoodItemModel> data;
+    private List<CategoryModel> data;
     private Meta meta;
 
-    public FoodResponse() {
+    public CategoryResponse() {
     }
 
-    public FoodResponse(String status, String message, List<FoodItemModel> data, Meta meta) {
+    public CategoryResponse(String status, String message, List<CategoryModel> data, Meta meta) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -34,11 +34,11 @@ public class FoodResponse {
         this.message = message;
     }
 
-    public List<FoodItemModel> getData() {
+    public List<CategoryModel> getData() {
         return data;
     }
 
-    public void setData(List<FoodItemModel> data) {
+    public void setData(List<CategoryModel> data) {
         this.data = data;
     }
 

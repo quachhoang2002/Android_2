@@ -1,12 +1,12 @@
-package food.app.activity;
+package food.app.activity.Models;
 
-    public class CartItem {
+    public class CartItemModel {
         private int imageResId;
         private String productName;
         private double price;
         private int quantity;
 
-        public CartItem(int imageResId, String productName, double price, int quantity) {
+        public CartItemModel(int imageResId, String productName, double price, int quantity) {
             this.imageResId = imageResId;
             this.productName = productName;
             this.price = price;
