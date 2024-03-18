@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,16 +11,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CartAdapter extends ArrayAdapter<CartItem> {
+import food.app.activity.Models.CartItemModel;
+import food.app.activity.R;
 
-    public CartAdapter(Context context, List<CartItem> products) {
+public class CartAdapter extends ArrayAdapter<CartItemModel> {
+
+    public CartAdapter(Context context, List<CartItemModel> products) {
         super(context, 0, products);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        CartItem product = getItem(position);
+        CartItemModel product = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {

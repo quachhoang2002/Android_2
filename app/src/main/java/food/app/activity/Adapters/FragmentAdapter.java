@@ -1,9 +1,12 @@
-package food.app.activity;
+package food.app.activity.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import food.app.activity.Fragments.LoginFragment;
+import food.app.activity.Fragments.RegisterFragment;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
 
@@ -19,6 +22,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
+
                 return new LoginFragment();
             case 1:
                 return new RegisterFragment();

@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import food.app.activity.R;
 
 public class RegisterFragment extends Fragment {
 

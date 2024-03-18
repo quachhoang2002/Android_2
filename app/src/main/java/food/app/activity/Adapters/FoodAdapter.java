@@ -1,4 +1,4 @@
-package food.app.activity;
+package food.app.activity.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import food.app.activity.Activities.FoodDetailActivity;
+import food.app.activity.Models.FoodItemModel;
+import food.app.activity.R;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 

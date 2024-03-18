@@ -8,23 +8,41 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import food.app.activity.FoodItemAdapter;
+import java.sql.SQLOutput;
+import java.util.List;
+
+import food.app.activity.Adapters.FoodAdapter;
+import food.app.activity.Adapters.FoodItemAdapter;
+import food.app.activity.Fragments.DrinkFragment;
+import food.app.activity.Fragments.FoodsFragment;
+import food.app.activity.Fragments.SnackFragment;
+import food.app.activity.Models.CategoryModel;
+import food.app.activity.Models.CategoryResponse;
+import food.app.activity.Models.FoodItemModel;
+import food.app.activity.Models.FoodResponse;
 import food.app.activity.R;
+import food.app.activity.Services.CategoryService;
+import food.app.activity.Services.ServiceBuilder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-
+                    FoodItemAdapter foodItemAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         if (!isConnected(this)) {
@@ -33,10 +51,33 @@ public class DashboardActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
+        CategoryService categoryService = ServiceBuilder.buildService(CategoryService.class);
+        Call<CategoryResponse> call = categoryService.getAllCategory();
+        call.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+                if (response.isSuccessful()) {
+                    CategoryResponse categoryResponse = response.body();
+                    if (categoryResponse != null) {
+                        List<CategoryModel> categoryModels = categoryResponse.getData();
+                        setDataTablayout(categoryModels);
+                    } else {
+                        System.out.println("Cate: null" );
+                    }
+                } else {
+                }
+            }
 
-        tabLayout.addTab(tabLayout.newTab().setText("Foods"));     //0
-        tabLayout.addTab(tabLayout.newTab().setText("Drinks"));    //1
-        tabLayout.addTab(tabLayout.newTab().setText("Snacks"));    //2
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+//        tabLayout.addTab(tabLayout.newTab().setText("Foods"), 0);
+//        tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
+//        tabLayout.addTab(tabLayout.newTab().setText("zxc"), 2);
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final FoodItemAdapter adapter = new FoodItemAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -52,17 +93,22 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
-    }
 
+    }
+    private void setDataTablayout(List<CategoryModel> categoryModels){
+        for (int i = 0; i < categoryModels.size(); i++) {
+            CategoryModel categoryModel = categoryModels.get(i);
+            tabLayout.addTab(tabLayout.newTab().setText(categoryModel.getName()), i);
+            System.out.println(i);
+        }
+    }
     private void showInternetDialog() {
 
         Dialog dialog = new Dialog(this);

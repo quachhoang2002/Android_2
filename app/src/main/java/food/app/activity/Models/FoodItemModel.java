@@ -1,9 +1,10 @@
-package food.app.activity;
+package food.app.activity.Models;
 
 public class FoodItemModel {
 
     int id;
-    String name, description;
+    public String name;
+    public String description;
 
     public FoodItemModel() {
     }
