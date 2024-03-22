@@ -36,16 +36,20 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-        System.out.println( "here"  + list.get(position).getId());
+//        System.out.println( "here"  + list.get(position).getId());
 //        holder.food_image.setImageResource(list.get(position).id);
-        holder.food_name.setText(list.get(position).name);
-        holder.food_price.setText(list.get(position).description);
+        holder.food_name.setText(list.get(position).getName());
+        holder.food_price.setText(String.valueOf(list.get(position).getPrice())+ "$");
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, FoodDetailActivity.class);
-                intent.putExtra("food_name", list.get(position).getId());
-                intent.putExtra("food_price", list.get(position).getName());
+                intent.putExtra("food_id", list.get(position).getId());
+                intent.putExtra("food_name", list.get(position).getName());
+                intent.putExtra("food_price", list.get(position).getPrice());
+                System.out.println("price : " + list.get(position).getPrice());
+                intent.putExtra("food_desc", list.get(position).getDescription());
+
 //                intent.putExtra("food_image", list.get(position).getDescription());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

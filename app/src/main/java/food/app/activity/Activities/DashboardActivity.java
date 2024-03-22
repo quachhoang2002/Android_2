@@ -39,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-                    FoodItemAdapter foodItemAdapter;
+    FoodItemAdapter foodItemAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -51,32 +51,32 @@ public class DashboardActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
-        CategoryService categoryService = ServiceBuilder.buildService(CategoryService.class);
-        Call<CategoryResponse> call = categoryService.getAllCategory();
-        call.enqueue(new Callback<CategoryResponse>() {
-            @Override
-            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                if (response.isSuccessful()) {
-                    CategoryResponse categoryResponse = response.body();
-                    if (categoryResponse != null) {
-                        List<CategoryModel> categoryModels = categoryResponse.getData();
-                        setDataTablayout(categoryModels);
-                    } else {
-                        System.out.println("Cate: null" );
-                    }
-                } else {
-                }
-            }
+//        CategoryService categoryService = ServiceBuilder.buildService(CategoryService.class);
+//        Call<CategoryResponse> call = categoryService.getAllCategory();
+//        call.enqueue(new Callback<CategoryResponse>() {
+//            @Override
+//            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+//                if (response.isSuccessful()) {
+//                    CategoryResponse categoryResponse = response.body();
+//                    if (categoryResponse != null) {
+//                        List<CategoryModel> categoryModels = categoryResponse.getData();
+//                        setDataTablayout(categoryModels);
+//                    } else {
+//                        System.out.println("Cate: null" );
+//                    }
+//                } else {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-//        tabLayout.addTab(tabLayout.newTab().setText("Foods"), 0);
-//        tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
-//        tabLayout.addTab(tabLayout.newTab().setText("zxc"), 2);
+        tabLayout.addTab(tabLayout.newTab().setText("Foods"), 0);
+        tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
+        tabLayout.addTab(tabLayout.newTab().setText("Snack"), 2);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

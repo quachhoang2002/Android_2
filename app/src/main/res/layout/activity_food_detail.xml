@@ -80,27 +80,27 @@
         app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
     <TextView
-        android:id="@+id/delivery_info"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito_semibold"
-        android:text="@string/delivery_info"
+        android:text="@string/description"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_price" />
 
     <TextView
-        android:id="@+id/delivery_info_txt"
+        android:id="@+id/description_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito"
         android:text="@string/food_delivery_desc"
         android:textColor="#B3000000"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/delivery_info"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_info" />
+        app:layout_constraintStart_toStartOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
         android:id="@+id/return_policy"
@@ -111,8 +111,8 @@
         android:text="@string/return_policy"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/delivery_info_txt"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_info_txt" />
+        app:layout_constraintStart_toStartOf="@+id/description_info"
+        app:layout_constraintTop_toBottomOf="@+id/description_info" />
 
     <TextView
         android:id="@+id/return_policy_txt"
@@ -125,7 +125,7 @@
         app:layout_constraintStart_toStartOf="@+id/return_policy"
         app:layout_constraintTop_toBottomOf="@+id/return_policy" />
 
-    <TextView
+    <Button
         android:id="@+id/food_order"
         android:layout_width="314dp"
         android:layout_height="60dp"
