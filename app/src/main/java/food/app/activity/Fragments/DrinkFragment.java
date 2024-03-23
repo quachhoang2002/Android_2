@@ -16,6 +16,7 @@ import food.app.activity.Adapters.FoodAdapter;
 import food.app.activity.Models.FoodItemModel;
 import food.app.activity.Models.FoodResponse;
 import food.app.activity.R;
+import food.app.activity.Services.CategoryService;
 import food.app.activity.Services.HomeService;
 import food.app.activity.Services.ServiceBuilder;
 import retrofit2.Call;
@@ -46,8 +47,8 @@ public class DrinkFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        HomeService productService = ServiceBuilder.buildService(HomeService.class);
-        Call<FoodResponse> call = productService.getAllFood();
+        HomeService homeService = ServiceBuilder.buildService(HomeService.class);
+        Call<FoodResponse> call = homeService.getDrinkCategory();
         call.enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
@@ -58,7 +59,7 @@ public class DrinkFragment extends Fragment {
                         foodAdapter = new FoodAdapter(products, getActivity().getApplicationContext());
                         recyclerView.setAdapter(foodAdapter);
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();

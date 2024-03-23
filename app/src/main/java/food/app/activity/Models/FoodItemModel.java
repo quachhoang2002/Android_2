@@ -3,16 +3,26 @@ package food.app.activity.Models;
 public class FoodItemModel {
 
     int id;
-    public String name;
-    public String description;
+    private String name;
+    private String description;
+    private float price;
 
     public FoodItemModel() {
     }
 
-    public FoodItemModel(int id, String name, String description) {
+    public FoodItemModel(int id, String name, String description, float price) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.price = price;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public int getId() {

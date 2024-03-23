@@ -46,8 +46,8 @@ public class SnackFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        HomeService productService = ServiceBuilder.buildService(HomeService.class);
-        Call<FoodResponse> call = productService.getAllFood();
+        HomeService homeService = ServiceBuilder.buildService(HomeService.class);
+        Call<FoodResponse> call = homeService.getSnackCategory();
         call.enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
@@ -58,7 +58,7 @@ public class SnackFragment extends Fragment {
                         foodAdapter = new FoodAdapter(products, getActivity().getApplicationContext());
                         recyclerView.setAdapter(foodAdapter);
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(g tActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
