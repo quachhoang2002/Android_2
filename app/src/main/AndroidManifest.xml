@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodAppDemo"
         tools:targetApi="m">
-        <activity android:name="food.app.activity.Activities.FoodDetailActivity"
+        <activity android:name="food.app.activity.Activities.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
         <activity android:name="food.app.activity.Activities.NoOrderActivity"  android:exported="true"/>
         <activity android:name="food.app.activity.Activities.NoHistoryActivity"  android:exported="true"/>
-        <activity android:name="food.app.activity.Activities.DashboardActivity" android:exported="true"/>
+        <activity android:name="food.app.activity.Activities.FoodDetailActivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.ModifyUserActivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.LoginActivity" />
         <activity android:name="food.app.activity.Activities.GetStartedActivity" />
