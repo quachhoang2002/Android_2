@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
-    private static final String URL = "http://t.hoangdeptrai.online/";
+    private static final String URL = "https://t.hoangdeptrai.online/";
 
     // Create logger
         private static HttpLoggingInterceptor logger =
