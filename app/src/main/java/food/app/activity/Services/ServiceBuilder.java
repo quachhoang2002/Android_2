@@ -48,6 +48,6 @@ public class ServiceBuilder {
     private static Retrofit retrofit = builder.build();
 
     public static <S> S buildService(Class<S> serviceType) {
-        return retrofit.create(serviceType);
+            return retrofit.create(serviceType);
     }
 }
