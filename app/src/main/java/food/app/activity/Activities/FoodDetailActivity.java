@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Objects;
 
 import food.app.activity.R;
@@ -45,7 +47,17 @@ public class FoodDetailActivity extends AppCompatActivity {
         float price = intent.getFloatExtra("food_price", 0.0f);
         food_name.setText(intent.getStringExtra("food_name"));
         food_price.setText(String.valueOf(price) + "$");
-        food_image.setImageResource(intent.getIntExtra("food_image", R.drawable.food_img_1));
+        String imageUrl = intent.getStringExtra("food_image");
+        imageUrl = imageUrl.replace("http://", "https://");
+
+        System.out.println("Imasdasd " + imageUrl);
+        Picasso.get()
+                .load(imageUrl)
+//                .placeholder(R.drawable.food_image)
+//                .error(R.drawable.food_image)
+                .resize(200, 200)
+                .centerCrop()
+                .into(food_image);
         food_description.setText(intent.getStringExtra("food_desc"));
 
         ordernow = findViewById(R.id.food_order);

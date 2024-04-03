@@ -25,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("Register"));
+        //make it the same layer with the tabLayout
+
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), tabLayout.getTabCount());

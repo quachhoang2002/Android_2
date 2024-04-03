@@ -6,15 +6,18 @@ public class FoodItemModel {
     private String name;
     private String description;
     private float price;
+    private String imagePath;
+
 
     public FoodItemModel() {
     }
 
-    public FoodItemModel(int id, String name, String description, float price) {
+    public FoodItemModel(int id, String name, String description, float price, String imagePath) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.imagePath = imagePath;
     }
 
     public float getPrice() {
@@ -47,5 +50,13 @@ public class FoodItemModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
