@@ -1,11 +1,13 @@
 package food.app.activity.Services;
 
+import android.content.Context;
 import android.os.Build;
 
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import food.app.activity.Token;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,7 +20,7 @@ public class ServiceBuilder {
     private static final String URL = "https://t.hoangdeptrai.online/";
 
     // Create logger
-        private static HttpLoggingInterceptor logger =
+    private static HttpLoggingInterceptor logger =
             new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
     // Create OkHttp Client
@@ -46,6 +48,8 @@ public class ServiceBuilder {
             .client(okHttp.build());
 
     private static Retrofit retrofit = builder.build();
+
+
 
     public static <S> S buildService(Class<S> serviceType) {
         return retrofit.create(serviceType);

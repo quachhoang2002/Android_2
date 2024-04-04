@@ -35,7 +35,9 @@
         <activity android:name="food.app.activity.Activities.LoginActivity" />
         <activity android:name="food.app.activity.Activities.GetStartedActivity" />
         <activity android:name="food.app.activity.Activities.ProfileActivity" android:exported="true"/>
-        <activity android:name="food.app.activity.Activities.SplashActivity">
+        <activity android:name="food.app.activity.Activities.WebPaymentAcitivity" android:exported="true"/>
+        <activity android:name="food.app.activity.Activities.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

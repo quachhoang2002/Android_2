@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import food.app.activity.Activities.FoodDetailActivity;
@@ -36,8 +38,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-//        System.out.println( "here"  + list.get(position).getId());
-//        holder.food_image.setImageResource(list.get(position).id);
+        String imageUrl = list.get(position).getImagePath();
+        imageUrl = imageUrl.replace("http://", "https://");
+        System.out.println("Imasdasd " + imageUrl);
+        Picasso.get()
+                .load(imageUrl)
+//                .placeholder(R.drawable.food_image)
+//                .error(R.drawable.food_image)
+                .resize(200, 200)
+                .centerCrop()
+                .into(holder.food_image);
+//        holder.food_image.setImageResource();
         holder.food_name.setText(list.get(position).getName());
         holder.food_price.setText(String.valueOf(list.get(position).getPrice())+ "$");
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +60,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                 intent.putExtra("food_price", list.get(position).getPrice());
                 System.out.println("price : " + list.get(position).getPrice());
                 intent.putExtra("food_desc", list.get(position).getDescription());
+                intent.putExtra("food_image", list.get(position).getImagePath());
 
 //                intent.putExtra("food_image", list.get(position).getDescription());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
