@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Cart"
+        android:textSize="30dp"
         android:textColor="@color/black"
         android:fontFamily="@font/nunito_semibold"
         android:gravity="center"
