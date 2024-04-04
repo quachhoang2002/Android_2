@@ -1,19 +1,19 @@
 package food.app.activity.Models;
 
     public class CartItemModel {
-        private int imageResId;
+        private String imageResId;
         private String productName;
         private double price;
         private int quantity;
 
-        public CartItemModel(int imageResId, String productName, double price, int quantity) {
+        public CartItemModel(String imageResId, String productName, double price, int quantity) {
             this.imageResId = imageResId;
             this.productName = productName;
             this.price = price;
             this.quantity = quantity;
         }
 
-        public int getImageResId() {
+        public String getImageResId() {
             return imageResId;
         }
 
