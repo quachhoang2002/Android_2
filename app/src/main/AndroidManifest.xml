@@ -34,6 +34,8 @@
         <activity android:name="food.app.activity.Activities.ModifyUserActivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.LoginActivity" />
         <activity android:name="food.app.activity.Activities.GetStartedActivity" />
+        <activity android:name="food.app.activity.Activities.CheckoutDeliveryActivity" android:exported="true"/>
+        <activity android:name="food.app.activity.Activities.CheckoutPaymentActivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.ProfileActivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.WebPaymentAcitivity" android:exported="true"/>
         <activity android:name="food.app.activity.Activities.SplashActivity"

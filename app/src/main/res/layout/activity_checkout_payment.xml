@@ -114,6 +114,7 @@
         tools:text="Delivery method." />
 
     <RadioGroup
+        android:id="@+id/delivery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

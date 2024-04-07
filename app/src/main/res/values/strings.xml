@@ -3,7 +3,10 @@
     <string name="food_for_everyone">Food for Everyone</string>
     <string name="get_started">Get Started</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="foods_fragment">Foods fragment</string>
+    <string name="drink_fragment">Drink fragment</string>
+    <string name="login_fragment">Login fragment</string>
+    <string name="register_fragment">Register fragment</string>
     <string name="food_name">Food Name</string>
     <string name="food_price">Food Price</string>
     <string name="delivery_info">Delivery info</string>
