@@ -29,11 +29,32 @@ public class ShareRef {
         editor.apply();
     }
 
+    public void saveFacebookUserInformation(String email, String phone,String token) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", email);
+        editor.putString("phone", phone);
+        editor.putString("token", token);
+        //is facebook login
+        editor.putBoolean("isFacebook", true);
+        editor.apply();
+    }
+
+    public String getFacebookToken() {
+        return sharedPreferences.getString("token", null);
+    }
+
     public String getEmail() {
         return sharedPreferences.getString("email", null);
     }
 
     public String getPhone() {
         return sharedPreferences.getString("phone", null);
+    }
+
+    //clear
+    public void clear() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 }

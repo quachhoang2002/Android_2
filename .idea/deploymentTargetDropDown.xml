@@ -5,7 +5,10 @@
       <entry key="DashboardActivity">
         <State />
       </entry>
-      <entry key="LoginActivity">
+      <entry key="LoginFBActivity">
+        <State />
+      </entry>
+      <entry key="SplashActivity">
         <State />
       </entry>
       <entry key="app">

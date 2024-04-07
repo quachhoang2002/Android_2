@@ -1,5 +1,6 @@
 package food.app.activity.Services;
 
+import food.app.activity.Request.FacebookLoginRequest;
 import food.app.activity.Request.LoginRequest;
 import food.app.activity.Request.PaymentRequest;
 import food.app.activity.Response.LoginResponse;
@@ -12,4 +13,8 @@ import retrofit2.http.POST;
 public interface LoginService {
     @POST("/api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("/api/auth/login")
+    Call<LoginResponse> loginWithFacebook(@Body FacebookLoginRequest loginRequest);
+
 }

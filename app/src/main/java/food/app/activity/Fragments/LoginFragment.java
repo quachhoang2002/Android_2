@@ -1,18 +1,22 @@
 package food.app.activity.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.facebook.FacebookActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import food.app.activity.Activities.DashboardActivity;
+import food.app.activity.Activities.LoginFBActivity;
 import food.app.activity.R;
 import food.app.activity.Request.LoginRequest;
 import food.app.activity.Response.LoginResponse;
@@ -87,6 +91,22 @@ public class LoginFragment extends Fragment {
 
             }
         });
+
+
+        //click on fb icon
+        ImageView facebookIcon = view.findViewById(R.id.facebook_icon);
+
+        if (facebookIcon != null) {
+            facebookIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginFBActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+
         return view;
     }
 }
