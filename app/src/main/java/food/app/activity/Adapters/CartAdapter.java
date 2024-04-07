@@ -37,7 +37,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
         ImageView productImage = convertView.findViewById(R.id.productImage);
         TextView productName = convertView.findViewById(R.id.productName);
         TextView productPrice = convertView.findViewById(R.id.productPrice);
-        NumberPicker productQuantity = convertView.findViewById(R.id.quantityNumberPicker);
+        NumberPicker productQuantity = convertView.findViewById(R.id.productQuantity);
 
         // Populate the data into the template view using the data object
         if (product != null) {
