@@ -21,7 +21,7 @@ public class FoodItemAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        System.out.println(position);
+        System.out.println(position + "Hiện hồn dùm");
         switch (position) {
             case 0:
                 return new FoodsFragment();
