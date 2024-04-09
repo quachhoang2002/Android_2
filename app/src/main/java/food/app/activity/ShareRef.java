@@ -22,10 +22,11 @@ public class ShareRef {
         editor.apply();
     }
 
-    public void saveUserInformation(String email, String phone) {
+    public void saveUserInformation(Integer userID,String email, String phone) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
         editor.putString("phone", phone);
+        editor.putString("userID", userID.toString());
         editor.apply();
     }
 
@@ -49,6 +50,10 @@ public class ShareRef {
 
     public String getPhone() {
         return sharedPreferences.getString("phone", null);
+    }
+
+    public Integer getUserID() {
+        return Integer.parseInt(sharedPreferences.getString("userID", null));
     }
 
     //clear

@@ -45,7 +45,7 @@ public class LoginFBActivity extends AppCompatActivity {
 //        shareRef.clear();
 
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","email"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         callbackManager = CallbackManager.Factory.create();
 
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -92,7 +92,7 @@ public class LoginFBActivity extends AppCompatActivity {
                                     //set to shared preferences
                                     ShareRef shareRef = new ShareRef(getApplicationContext());
                                     shareRef.saveToken(paymentResponse.getData().token);
-                                    shareRef.saveUserInformation(paymentResponse.getData().email, paymentResponse.getData().phone);
+                                    shareRef.saveUserInformation(paymentResponse.getData().id, paymentResponse.getData().email, paymentResponse.getData().phone);
 
                                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                                     startActivity(intent);
