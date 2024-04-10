@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:background="#BCBABA"
     tools:context=".Activities.LoginActivity">
+    <!-- This is activity_main.xml -->
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <View
         android:id="@+id/view"
@@ -44,13 +49,14 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:paddingTop="10dp"
         android:layout_height="0dp"
         android:layout_above="@id/tabLayout"
         android:layout_margin="0dp"
         android:background="@drawable/login_background"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

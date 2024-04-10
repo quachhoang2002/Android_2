@@ -31,6 +31,7 @@ import food.app.activity.Models.FoodResponse;
 import food.app.activity.R;
 import food.app.activity.Services.CategoryService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +49,11 @@ public class DashboardActivity extends AppCompatActivity {
         if (!isConnected(this)) {
             showInternetDialog();
         }
+
+
+        //get name from shared preference
+        String name = new ShareRef(this).getEmail();
+        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_SHORT).show();
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);

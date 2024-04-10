@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.4'
@@ -22,3 +23,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//keytool -exportcert -alias androiddebugkey -keystore "C:\Users\ADMIN\.android\debug.keystore" | "E:\School\Android-Advance\openssl-0.9.8e_X64\bin\openssl" sha1 -binary | "E:\School\Android-Advance\openssl-0.9.8e_X64\bin\openssl" base64
+//hash: w5G662mc4o81BUzLaFO2xjZlnHw=
+//key_store_pass: quachhoang2002
+
+

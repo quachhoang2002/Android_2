@@ -1,13 +1,11 @@
 package food.app.activity.Services;
 
-import android.content.Context;
 import android.os.Build;
 
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import food.app.activity.Token;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
