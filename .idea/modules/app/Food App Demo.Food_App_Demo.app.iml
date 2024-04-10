@@ -3,13 +3,8 @@
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-<<<<<<< HEAD
-        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="7.4.2" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
         <option name="LAST_KNOWN_AGP_VERSION" value="8.1.4" />
-=======
-        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="8.2.2" />
-        <option name="LAST_KNOWN_AGP_VERSION" value="8.2.2" />
->>>>>>> fda15d2b262426e621aab7a5a082346d993d2061
       </configuration>
     </facet>
     <facet type="android" name="Android">

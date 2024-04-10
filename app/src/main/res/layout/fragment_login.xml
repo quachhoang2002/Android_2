@@ -76,5 +76,10 @@
     </ScrollView>
 
 
+<!--    <fragment-->
+<!--        android:id="@+id/login_fragment"-->
+<!--        android:name="food.app.activity.Fragments.LoginFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
