@@ -1,1 +1,8 @@
 /build
+
+.idea/libraries/
+
+.idea/libraries/*.xml
+
+*.aar.xml
+*.jar.xml

@@ -2,8 +2,6 @@ package food.app.activity.Activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -14,7 +12,7 @@ import food.app.activity.Request.PaymentRequest;
 import food.app.activity.Response.PaymentResponse;
 import food.app.activity.Services.PaymentService;
 import food.app.activity.Services.ServiceBuilder;
-import food.app.activity.Token;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +78,7 @@ public class WebPaymentAcitivity extends AppCompatActivity {
     }
 
     private String getToken() {
-        Token token = new Token(this);
+        ShareRef token = new ShareRef(this);
         token.saveToken("cafab202-e1711888676203");
         return token.getToken();
     }

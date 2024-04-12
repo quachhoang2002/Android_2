@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="get_started">Get Started</string>
+    <string name="facebook_app_id">7554945684555688</string>
+    <string name="fb_login_protocol_scheme">fb7554945684555688</string>
+    <string name="facebook_client_token">56789</string>
 </resources>

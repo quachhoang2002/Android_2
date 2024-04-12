@@ -6,5 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface CategoryService {
-
+    @GET("api/admin/category")
+    Call<CategoryResponse> getAllCategory();
 }
