@@ -11,4 +11,9 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface CategoryService {
+<<<<<<< HEAD
+=======
+    @GET("api/admin/category")
+    Call<CategoryResponse> getAllCategory();
+>>>>>>> 23daf47f5e631103ce9f31ce84224979bcc53fde
 }
