@@ -5,6 +5,9 @@
       <entry key="CheckoutDeliveryActivity">
         <State />
       </entry>
+      <entry key="CheckoutPaymentActivity">
+        <State />
+      </entry>
       <entry key="SplashActivity">
         <State />
       </entry>
