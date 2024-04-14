@@ -1,14 +1,26 @@
 package food.app.activity.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import food.app.activity.Models.CartResponse;
 import food.app.activity.R;
+import food.app.activity.Response.PaymentResponse;
+import food.app.activity.Services.CartService;
+import food.app.activity.Services.PaymentService;
+import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckoutDeliveryActivity extends AppCompatActivity {
     private ImageButton backBtn;
@@ -19,40 +31,60 @@ public class CheckoutDeliveryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_delivery);
 
+
+
+        TextView total = findViewById(R.id.total);
+
+        EditText name = findViewById(R.id.nameCus);
+        EditText phone = findViewById(R.id.phoneCus);
+        EditText address = findViewById(R.id.addrCus);
+
+
+        CartService cartSvc = ServiceBuilder.buildService(CartService.class);
+        ShareRef shareRef = new ShareRef(CheckoutDeliveryActivity.this);
+
+        Call<CartResponse> call = cartSvc.getCartByUserId(1);
+        call.enqueue(new Callback<CartResponse>() {
+            @Override
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                Log.d("API_SUCCESS", response.toString());
+                if (response.isSuccessful()) {
+                    CartResponse cartResponse = response.body();
+                    int totalPrice = cartResponse.getTotalPrice();
+                    String totalStr = String.valueOf(totalPrice);
+                    total.setText("Total: " + totalStr + " VND");
+
+                } else {
+               }
+            }
+            @Override
+            public void onFailure(Call<CartResponse> call, Throwable t) {
+                Log.e("API_FAILURE", "Request Failed", t);
+            }
+        });
+
+
         // Initialize views
         backBtn = findViewById(R.id.back_btn);
         proceedToPaymentBtn = findViewById(R.id.payment_btn);
-
-        // Set onClickListener for back button
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // This will just finish the current activity and go back to the previous one.
                 finish();
             }
         });
 
-        // Set onClickListener for the proceed to payment button
         proceedToPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // For now, let's just show a toast message. You can replace this with your actual payment logic.
-                Toast.makeText(CheckoutDeliveryActivity.this, "Proceeding to payment...", Toast.LENGTH_SHORT).show();
-                // Add your payment intent here or any other logic you want to perform.
-            }
+                Intent intent = new Intent(CheckoutDeliveryActivity.this, CheckoutPaymentActivity.class);
+                intent.putExtra("name", name.getText().toString());
+                intent.putExtra("phone", phone.getText().toString());
+                intent.putExtra("address", address.getText().toString());
+                intent.putExtra("total", total.getText().toString());
+                startActivity(intent);
+           }
         });
 
-        // Optionally, you can also fill in customer details programmatically if needed.
-        // Here is how you can do it for example:
-        TextView nameCus = findViewById(R.id.nameCus);
-        TextView addrCus = findViewById(R.id.addrCus);
-        TextView phoneCus = findViewById(R.id.phoneCus);
-
-        // Assuming these details are fetched from somewhere, like a database or passed through intent.
-        nameCus.setText("Marvis Kparobo");
-        addrCus.setText("Km 5 refinery road opposite republic road, effurun, delta state");
-        phoneCus.setText("+234 9011039271");
-
-        // Handle other components like RadioButtons etc. based on your requirements.
     }
 }

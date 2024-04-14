@@ -1,5 +1,6 @@
 package food.app.activity.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,12 +24,18 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_payment);
 
+        Bundle extras = getIntent().getExtras();
+        String total = extras.getString("total");
+        System.out.println(total);
+
+
         // Khởi tạo các thành phần giao diện
         backBtn = findViewById(R.id.back_btn);
         proceedToPaymentBtn = findViewById(R.id.payment_btn);
         paymentMethodGroup = findViewById(R.id.payment);
         deliveryMethodGroup = findViewById(R.id.delivery);
-        totalCost = findViewById(R.id.cost);
+        totalCost = findViewById(R.id.total);
+        totalCost.setText(total + " VND");
 
         // Đặt sự kiện nhấp cho nút quay lại
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +59,19 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
                 RadioButton selectedDeliveryMethod = findViewById(selectedDeliveryMethodId);
                 String deliveryMethod = selectedDeliveryMethod.getText().toString();
 
+
                 String total = totalCost.getText().toString();
+
+
+                if (paymentMethod.equals("Card")) {
+                    WebPaymentAcitivity webPaymentAcitivity = new WebPaymentAcitivity();
+                    Intent intent = new Intent(CheckoutPaymentActivity.this, webPaymentAcitivity.getClass());
+                    startActivity(intent);
+                }  else{
+                    // Xử lý thanh toán bằng phương thức khác
+                    // Gọi hàm thanh toán bằng phương thức khác ở đây
+                }
+
 
                 // Hiển thị thông tin thanh toán (ví dụ)
                 Toast.makeText(CheckoutPaymentActivity.this,

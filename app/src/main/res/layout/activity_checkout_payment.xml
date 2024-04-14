@@ -84,12 +84,12 @@
             android:text="Card" />
 
         <RadioButton
-            android:id="@+id/radio_bank"
+            android:id="@+id/radio_delivery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/bank"
             android:drawablePadding="10dp"
-            android:text="Bank account" />
+            android:text="Pay on delivery" />
     </RadioGroup>
 
     <TextView
@@ -158,17 +158,5 @@
         app:layout_constraintStart_toStartOf="@+id/method2"
         app:layout_constraintTop_toTopOf="@+id/method"/>
 
-    <TextView
-        android:id="@+id/cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_semibold"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:text="23,000"
-        android:paddingStart="250dp"
-        app:layout_constraintBottom_toBottomOf="@+id/total"
-        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -109,14 +109,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/nameCus"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:background="@drawable/rectangle_background"
         android:backgroundTint="#A4B1A2A2"
         android:fontFamily="@font/nunito_semibold"
-        android:text="Marvis Kparobo"
+        android:hint="Name"
         android:gravity="left|center"
         android:textColor="@color/black"
         android:paddingLeft="20dp"
@@ -125,31 +124,29 @@
         app:layout_constraintTop_toTopOf="@+id/layoutAddress"
         app:layout_constraintStart_toStartOf="@+id/layoutAddress"/>
 
-    <TextView
+    <EditText
         android:id="@+id/addrCus"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:background="@drawable/rectangle_background"
         android:backgroundTint="#A4B1A2A2"
         android:fontFamily="@font/nunito_semibold"
         android:gravity="left|center"
         android:paddingLeft="20dp"
-        android:text="Km 5 refinery road oppsite re public road, effurun, delta state"
+        android:hint="Address"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/nameCus"
         app:layout_constraintStart_toStartOf="@+id/layoutAddress"
         tools:layout_editor_absoluteX="59dp" />
 
-    <TextView
+    <EditText
         android:id="@+id/phoneCus"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:background="@drawable/rectangle_background"
         android:backgroundTint="#A4B1A2A2"
         android:fontFamily="@font/nunito_semibold"
         android:gravity="left|center"
         android:paddingLeft="20dp"
-        android:text="+234 9011039271"
+        android:hint="Phone"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/layoutAddress"
         app:layout_constraintTop_toBottomOf="@+id/addrCus"
@@ -202,18 +199,8 @@
         android:paddingTop="170dp"
         app:layout_constraintStart_toStartOf="@+id/address"
         app:layout_constraintTop_toTopOf="@+id/method"
-        android:text="Total" />
+        android:text="Total:" />
 
-    <TextView
-        android:id="@+id/cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_semibold"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/total"
-        app:layout_constraintStart_toStartOf="@+id/change_btn"
-        android:text="23,000" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
