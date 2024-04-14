@@ -8,6 +8,9 @@
       <entry key="CheckoutPaymentActivity">
         <State />
       </entry>
+      <entry key="LoginActivity">
+        <State />
+      </entry>
       <entry key="SplashActivity">
         <State />
       </entry>

@@ -2,6 +2,7 @@ package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -11,7 +12,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
+import food.app.activity.Models.CartResponse;
 import food.app.activity.R;
+import food.app.activity.Request.OrderRequest;
+import food.app.activity.Response.OrderResponse;
+import food.app.activity.Services.CartService;
+import food.app.activity.Services.PaymentService;
+import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckoutPaymentActivity extends AppCompatActivity {
     private ImageButton backBtn;
@@ -26,6 +39,12 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String total = extras.getString("total");
+        String name = extras.getString("name");
+        String phone = extras.getString("phone");
+        String address = extras.getString("address");
+
+        TextView textTotal = findViewById(R.id.total);
+
         System.out.println(total);
 
 
@@ -59,17 +78,53 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
                 RadioButton selectedDeliveryMethod = findViewById(selectedDeliveryMethodId);
                 String deliveryMethod = selectedDeliveryMethod.getText().toString();
 
+                ShareRef shareRef = new ShareRef(CheckoutPaymentActivity.this);
+                Log.d("USER_ID", String.valueOf(shareRef.getUserID()));
+                Log.d("USER_EMAIL", shareRef.getEmail());
+
+                PaymentService paymentSvc = ServiceBuilder.buildService(PaymentService.class);
+                OrderRequest orderRequest = new OrderRequest();
+                orderRequest.setCustomerName(name);
+                orderRequest.setShippingAddress(address);
+                orderRequest.setCustomerPhone(phone);
+                orderRequest.setEmail_receive(shareRef.getEmail());
+                orderRequest.setStatus(0);
+                orderRequest.setTotal_price(Double.parseDouble(total));
+                OrderRequest.User user = new OrderRequest.User();
+                user.setId(shareRef.getUserID());
+                orderRequest.setUser(user);
+
+                Log.d("ORDER_REQUEST", orderRequest.toString());
+
+
+                Call<OrderResponse> call = paymentSvc.addOrder(orderRequest);
+                call.enqueue(new Callback<OrderResponse>() {
+                    @Override
+                    public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                        Log.d("API_SUCCESS", response.toString());
+                        if (response.isSuccessful()) {
+                            OrderResponse cartResponse = response.body();
+                            Double totalPrice = cartResponse.getTotalPrice();
+                            String totalStr = String.valueOf(totalPrice);
+                            textTotal.setText("Total: " + totalStr + " VND");
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<OrderResponse> call, Throwable t) {
+                        Log.e("API_FAILURE", "Request Failed", t);
+                    }
+                });
+
 
                 String total = totalCost.getText().toString();
-
-
                 if (paymentMethod.equals("Card")) {
                     WebPaymentAcitivity webPaymentAcitivity = new WebPaymentAcitivity();
                     Intent intent = new Intent(CheckoutPaymentActivity.this, webPaymentAcitivity.getClass());
                     startActivity(intent);
-                }  else{
-                    // Xử lý thanh toán bằng phương thức khác
-                    // Gọi hàm thanh toán bằng phương thức khác ở đây
+                } else {
+
                 }
 
 

@@ -31,19 +31,17 @@ public class CheckoutDeliveryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_delivery);
 
-
-
         TextView total = findViewById(R.id.total);
-
         EditText name = findViewById(R.id.nameCus);
         EditText phone = findViewById(R.id.phoneCus);
         EditText address = findViewById(R.id.addrCus);
-
+        TextView total_price = findViewById(R.id.total_price);
 
         CartService cartSvc = ServiceBuilder.buildService(CartService.class);
         ShareRef shareRef = new ShareRef(CheckoutDeliveryActivity.this);
 
-        Call<CartResponse> call = cartSvc.getCartByUserId(1);
+        Log.d("USER_ID", String.valueOf(shareRef.getUserID()));
+        Call<CartResponse> call = cartSvc.getCartByUserId(shareRef.getUserID());
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
@@ -51,9 +49,10 @@ public class CheckoutDeliveryActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     CartResponse cartResponse = response.body();
                     int totalPrice = cartResponse.getTotalPrice();
+                    Log.d("API_SUCCESS", cartResponse.toString());
+                    Log.d("API_SUCCESS", String.valueOf(totalPrice));
                     String totalStr = String.valueOf(totalPrice);
-                    total.setText("Total: " + totalStr + " VND");
-
+                    total_price.setText(totalStr);
                 } else {
                }
             }
@@ -81,7 +80,7 @@ public class CheckoutDeliveryActivity extends AppCompatActivity {
                 intent.putExtra("name", name.getText().toString());
                 intent.putExtra("phone", phone.getText().toString());
                 intent.putExtra("address", address.getText().toString());
-                intent.putExtra("total", total.getText().toString());
+                intent.putExtra("total", total_price.getText().toString());
                 startActivity(intent);
            }
         });
