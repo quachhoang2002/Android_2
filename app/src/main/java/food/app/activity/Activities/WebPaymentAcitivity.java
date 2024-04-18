@@ -1,5 +1,6 @@
 package food.app.activity.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
@@ -72,6 +73,8 @@ public class WebPaymentAcitivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PaymentResponse> call, Throwable t) {
                 Log.e("API_FAILURE", "Request Failed", t);
+                Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -79,7 +82,7 @@ public class WebPaymentAcitivity extends AppCompatActivity {
 
     private String getToken() {
         ShareRef token = new ShareRef(this);
-        token.saveToken("cafab202-e1711888676203");
+//        token.saveToken("cafab202-e1711888676203");
         return token.getToken();
     }
 

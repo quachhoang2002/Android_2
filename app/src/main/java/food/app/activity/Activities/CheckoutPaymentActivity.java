@@ -103,11 +103,28 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
                     public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                         Log.d("API_SUCCESS", response.toString());
                         if (response.isSuccessful()) {
+                            Log.d("API_SUCCESS_asdsad", response.body().toString());
                             OrderResponse cartResponse = response.body();
-                            Double totalPrice = cartResponse.getTotalPrice();
+                            Double totalPrice = cartResponse.getData().totalPrice;
                             String totalStr = String.valueOf(totalPrice);
                             textTotal.setText("Total: " + totalStr + " VND");
+                            String total = totalCost.getText().toString();
+                            if (paymentMethod.equals("Card")) {
+                                Integer id = cartResponse.getData().id;
+                                Intent intent = new Intent(CheckoutPaymentActivity.this, WebPaymentAcitivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+
+                            } else {
+                                 //back to dashboard
+                                Intent intent = new Intent(CheckoutPaymentActivity.this, DashboardActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
                         } else {
+                            Log.d("API_SUCCESS", "Response not successful");
                         }
                     }
 
@@ -118,20 +135,11 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
                 });
 
 
-                String total = totalCost.getText().toString();
-                if (paymentMethod.equals("Card")) {
-                    WebPaymentAcitivity webPaymentAcitivity = new WebPaymentAcitivity();
-                    Intent intent = new Intent(CheckoutPaymentActivity.this, webPaymentAcitivity.getClass());
-                    startActivity(intent);
-                } else {
 
-                }
-
-
-                // Hiển thị thông tin thanh toán (ví dụ)
-                Toast.makeText(CheckoutPaymentActivity.this,
-                        "Payment Method: " + paymentMethod + "\nDelivery Method: " + deliveryMethod +
-                                "\nTotal: " + total, Toast.LENGTH_LONG).show();
+//                // Hiển thị thông tin thanh toán (ví dụ)
+//                Toast.makeText(CheckoutPaymentActivity.this,
+//                        "Payment Method: " + paymentMethod + "\nDelivery Method: " + deliveryMethod +
+//                                "\nTotal: " + total, Toast.LENGTH_LONG).show();
             }
         });
     }
