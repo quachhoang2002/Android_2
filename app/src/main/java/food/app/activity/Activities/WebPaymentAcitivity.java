@@ -1,9 +1,8 @@
 package food.app.activity.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -14,7 +13,7 @@ import food.app.activity.Request.PaymentRequest;
 import food.app.activity.Response.PaymentResponse;
 import food.app.activity.Services.PaymentService;
 import food.app.activity.Services.ServiceBuilder;
-import food.app.activity.Token;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,14 +73,16 @@ public class WebPaymentAcitivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PaymentResponse> call, Throwable t) {
                 Log.e("API_FAILURE", "Request Failed", t);
+                Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
+                startActivity(intent);
             }
         });
 
     }
 
     private String getToken() {
-        Token token = new Token(this);
-        token.saveToken("cafab202-e1711888676203");
+        ShareRef token = new ShareRef(this);
+//        token.saveToken("cafab202-e1711888676203");
         return token.getToken();
     }
 

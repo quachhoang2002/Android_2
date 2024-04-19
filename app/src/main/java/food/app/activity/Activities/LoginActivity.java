@@ -9,6 +9,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import food.app.activity.Adapters.FragmentAdapter;
 import food.app.activity.R;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 
 public class LoginActivity extends AppCompatActivity {
 

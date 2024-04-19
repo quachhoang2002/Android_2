@@ -31,6 +31,7 @@ import food.app.activity.Models.FoodResponse;
 import food.app.activity.R;
 import food.app.activity.Services.CategoryService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +50,11 @@ public class DashboardActivity extends AppCompatActivity {
             showInternetDialog();
         }
 
+
+        //get name from shared preference
+        String name = new ShareRef(this).getEmail();
+        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_SHORT).show();
+
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
 //        CategoryService categoryService = ServiceBuilder.buildService(CategoryService.class);
@@ -60,11 +66,16 @@ public class DashboardActivity extends AppCompatActivity {
 //                    CategoryResponse categoryResponse = response.body();
 //                    if (categoryResponse != null) {
 //                        List<CategoryModel> categoryModels = categoryResponse.getData();
-//                        setDataTablayout(categoryModels);
+//                        for (int i = 0; i < categoryModels.size(); i++) {
+//                            CategoryModel categoryModel = categoryModels.get(i);
+//                            tabLayout.addTab(tabLayout.newTab().setText(categoryModel.getName()), i);
+//                            System.out.println(categoryModel.getName());
+//                        }
 //                    } else {
 //                        System.out.println("Cate: null" );
 //                    }
 //                } else {
+//                    System.out.println("Hiện đi thằng thất bại");
 //                }
 //            }
 //
@@ -73,7 +84,11 @@ public class DashboardActivity extends AppCompatActivity {
 //                t.printStackTrace();
 //            }
 //        });
-
+//        String[] cate = {"Foods", "Drink", "Snack"};
+//        for(int i = 0; i<cate.length; i++) {
+//            tabLayout.addTab(tabLayout.newTab().setText(cate[i]), i);
+//
+//        }
         tabLayout.addTab(tabLayout.newTab().setText("Foods"), 0);
         tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
         tabLayout.addTab(tabLayout.newTab().setText("Snack"), 2);
@@ -85,9 +100,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        System.out.println("cdjt con me m");
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -106,7 +123,7 @@ public class DashboardActivity extends AppCompatActivity {
         for (int i = 0; i < categoryModels.size(); i++) {
             CategoryModel categoryModel = categoryModels.get(i);
             tabLayout.addTab(tabLayout.newTab().setText(categoryModel.getName()), i);
-            System.out.println(i);
+            System.out.println(categoryModel.getName());
         }
     }
     private void showInternetDialog() {
