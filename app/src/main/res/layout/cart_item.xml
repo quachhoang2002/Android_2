@@ -50,19 +50,9 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="16sp" />
 
-            <NumberPicker
-                android:id="@+id/productQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:maxLength="3"
-                android:min="0"
-                android:max="100"
-                android:value="0" />
-
             <Button
                 android:id="@+id/decreaseQuantityButton"
-                android:layout_width="76dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:paddingTop="1dp"/>
@@ -78,10 +68,19 @@
 
             <Button
                 android:id="@+id/increaseQuantityButton"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:paddingTop="1dp"/>
+            <ImageButton
+                android:id="@+id/deleteProductButton"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="1dp"
+                android:src="@drawable/icons8_trash_24"
+                android:background="@android:color/transparent" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
