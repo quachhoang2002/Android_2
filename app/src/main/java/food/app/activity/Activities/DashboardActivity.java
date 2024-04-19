@@ -8,6 +8,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
+    ImageView foodCart;
     FoodItemAdapter foodItemAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,38 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
-//        CategoryService categoryService = ServiceBuilder.buildService(CategoryService.class);
-//        Call<CategoryResponse> call = categoryService.getAllCategory();
-//        call.enqueue(new Callback<CategoryResponse>() {
-//            @Override
-//            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-//                if (response.isSuccessful()) {
-//                    CategoryResponse categoryResponse = response.body();
-//                    if (categoryResponse != null) {
-//                        List<CategoryModel> categoryModels = categoryResponse.getData();
-//                        for (int i = 0; i < categoryModels.size(); i++) {
-//                            CategoryModel categoryModel = categoryModels.get(i);
-//                            tabLayout.addTab(tabLayout.newTab().setText(categoryModel.getName()), i);
-//                            System.out.println(categoryModel.getName());
-//                        }
-//                    } else {
-//                        System.out.println("Cate: null" );
-//                    }
-//                } else {
-//                    System.out.println("Hiện đi thằng thất bại");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CategoryResponse> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
-//        String[] cate = {"Foods", "Drink", "Snack"};
-//        for(int i = 0; i<cate.length; i++) {
-//            tabLayout.addTab(tabLayout.newTab().setText(cate[i]), i);
-//
-//        }
+
         tabLayout.addTab(tabLayout.newTab().setText("Foods"), 0);
         tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
         tabLayout.addTab(tabLayout.newTab().setText("Snack"), 2);
@@ -116,7 +88,14 @@ public class DashboardActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
+        foodCart = findViewById(R.id.food_cart);
+        foodCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     private void setDataTablayout(List<CategoryModel> categoryModels){

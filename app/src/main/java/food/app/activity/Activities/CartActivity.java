@@ -1,5 +1,6 @@
 package food.app.activity.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -25,20 +26,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
+    ListView listView;
+    public CartAdapter productAdapter;
+    public List<CartItemModel> productListView;
+    final boolean[] isNull = {false};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
         // Sample data
-        List<CartItemModel> productListView = new ArrayList<>();
+        productListView = new ArrayList<>();
         CartService cartService = ServiceBuilder.buildService(CartService.class);
         Call<CartResponse> call = cartService.getCartByUserId(1);
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 if (response.isSuccessful()) {
-                    Gson gson = new Gson();
                     CartResponse cartResponse = response.body();
                     List<FoodItemModel> productList = cartResponse.getProductItems();
                     List<CartItem> cartLists = cartResponse.getCartItems();
@@ -48,29 +53,41 @@ public class CartActivity extends AppCompatActivity {
                     for (CartItem cartItem : cartLists) {
                         for (FoodItemModel product : productList) {
                             if (cartItem.getProductId() == product.getId()) {
+                                int productId = product.getId();
                                 String imageResId = product.getImagePath();
                                 String productName = product.getName();
                                 double price = product.getPrice();
                                 int quantity = cartItem.getQuantity();
-                                System.out.println(quantity);
+                                System.out.println(productId);
 
-                                productListView.add(new CartItemModel(imageResId, productName, price, quantity));
+                                productListView.add(new CartItemModel(productId,imageResId, productName, price, quantity));
                                 break;
                             }
                         }
                     }
-                    CartAdapter productAdapter = new CartAdapter(CartActivity.this, productListView);
-                    ListView listView = findViewById(R.id.cartListView);
-                    listView.setAdapter(productAdapter);
+
+
+
 
                 } else {
                     try {
+                        isNull[0] = true;
                         String errorMessage = response.errorBody().string();
                         System.out.println("Error: " + errorMessage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                if (isNull[0]){
+                    Intent intent = new Intent(CartActivity.this, NoOrderActivity.class);
+                    startActivity(intent);
+                }else {
+                    productAdapter = new CartAdapter(CartActivity.this, productListView);
+                    listView = findViewById(R.id.cartListView);
+                    listView.setAdapter(productAdapter);
+                    productAdapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -78,15 +95,16 @@ public class CartActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
-//        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 1", 10.99, 2));
-//        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 2", 24.99, 1));
-//        productList.add(new CartItemModel(R.mipmap.ic_launcher, "Product 3", 5.99, 3));
 
-        // Set up the adapter
-//        CartAdapter productAdapter = new CartAdapter(this, productListView);
-//
-//        // Attach the adapter to a ListView
-//        ListView listView = findViewById(R.id.cartListView);
-//        listView.setAdapter(productAdapter);
     }
+//    public void reloadView() {
+//        if (productAdapter != null) {
+//            productAdapter.notifyDataSetChanged();
+//        }else {
+//            Intent intent = new Intent(CartActivity.this, NoOrderActivity.class);
+//            startActivity(intent);
+//        }
+//
+//    }
+
 }

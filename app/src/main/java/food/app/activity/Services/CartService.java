@@ -1,16 +1,20 @@
 package food.app.activity.Services;
 
-import com.google.gson.Gson;
-
-import java.util.List;
+import java.util.Map;
 
 import food.app.activity.Models.CartModel;
 import food.app.activity.Models.CartResponse;
+import food.app.activity.Models.DeleteCartModel;
+import food.app.activity.Response.DeleteCartResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface CartService {
     @POST("api/cart/add")
@@ -18,5 +22,10 @@ public interface CartService {
 
     @GET("api/cart/getByUserId/{userId}")
     Call<CartResponse> getCartByUserId(@Path("userId") int userId);
+
+    @HTTP(method = "DELETE", path = "api/cart/deleteItem", hasBody = true)
+    Call<DeleteCartResponse> deleteCartItem(@Body Map<String, Object> request);
+    @PUT("api/cart/updateQuantity")
+    Call<DeleteCartResponse> updateCartItem(@Body Map<String, Object> request);
 
 }
