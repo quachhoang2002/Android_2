@@ -1,89 +1,50 @@
 package food.app.activity.Response;
 
 public class OrderResponse {
-    private int id;
-    private String customerName;
-    private String shippingAddress;
-    private String customerPhone;
-    private String emailReceive;
-    private Double totalPrice;
-    private Integer employeeID; // Use object types for fields that can be null
-    private int status;
+    private String status;
+    private String message;
+    private Data data;
 
-    // Default constructor
-    public OrderResponse() {
+    public static class Data {
+        public int id;
+        public String customerName;
+        public String shippingAddress;
+        public String customerPhone;
+        public String emailReceive;
+        public Double totalPrice;
+        public Integer employeeID; // Use object types for fields that can be null
+
     }
 
-    // Getter and setter for id
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    // Getter and setter for customerName
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    // Getter and setter for shippingAddress
-    public String getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    // Getter and setter for customerPhone
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    // Getter and setter for emailReceive
-    public String getEmailReceive() {
-        return emailReceive;
-    }
-
-    public void setEmailReceive(String emailReceive) {
-        this.emailReceive = emailReceive;
-    }
-
-    // Getter and setter for totalPrice
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    // Getter and setter for employeeID
-    public Integer getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(Integer employeeID) {
-        this.employeeID = employeeID;
-    }
 
     // Getter and setter for status
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+    // Getter and setter for message
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    // Getter and setter for data
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
 }
 

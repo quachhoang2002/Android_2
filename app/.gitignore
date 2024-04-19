@@ -6,3 +6,7 @@
 
 *.aar.xml
 *.jar.xml
+.gradle/
+
+.gradle/*.lock
+.idea/caches/
