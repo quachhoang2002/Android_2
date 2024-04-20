@@ -3,6 +3,7 @@ package food.app.activity.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,15 @@ public class NoOrderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NoOrderActivity.this, DashboardActivity.class);
                 startActivity(intent);
+            }
+        });
+        ImageButton backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NoOrderActivity.this, DashboardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

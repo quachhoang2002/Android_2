@@ -2,6 +2,8 @@ package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +27,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity  {
     ListView listView;
     public CartAdapter productAdapter;
     public List<CartItemModel> productListView;
-    final boolean[] isNull = {false};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,20 @@ public class CartActivity extends AppCompatActivity {
 
         // Sample data
         productListView = new ArrayList<>();
+        loadData();
+        System.out.println("CartActivity: " + productListView);
+        ImageButton backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, DashboardActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+    public void loadData(){
         CartService cartService = ServiceBuilder.buildService(CartService.class);
         Call<CartResponse> call = cartService.getCartByUserId(1);
         call.enqueue(new Callback<CartResponse>() {
@@ -65,29 +80,21 @@ public class CartActivity extends AppCompatActivity {
                             }
                         }
                     }
-
-
-
+                    System.out.println("CartActivity: " + productListView);
 
                 } else {
                     try {
-                        isNull[0] = true;
                         String errorMessage = response.errorBody().string();
                         System.out.println("Error: " + errorMessage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                if (isNull[0]){
-                    Intent intent = new Intent(CartActivity.this, NoOrderActivity.class);
-                    startActivity(intent);
-                }else {
-                    productAdapter = new CartAdapter(CartActivity.this, productListView);
-                    listView = findViewById(R.id.cartListView);
-                    listView.setAdapter(productAdapter);
-                    productAdapter.notifyDataSetChanged();
-                }
+                productAdapter = new CartAdapter(CartActivity.this, productListView, CartActivity.this);
 
+                listView = findViewById(R.id.cartListView);
+                listView.setAdapter(productAdapter);
+                productAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,16 +102,5 @@ public class CartActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
-
     }
-//    public void reloadView() {
-//        if (productAdapter != null) {
-//            productAdapter.notifyDataSetChanged();
-//        }else {
-//            Intent intent = new Intent(CartActivity.this, NoOrderActivity.class);
-//            startActivity(intent);
-//        }
-//
-//    }
-
 }

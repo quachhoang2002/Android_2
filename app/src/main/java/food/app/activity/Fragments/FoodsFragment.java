@@ -28,9 +28,9 @@ public class FoodsFragment extends Fragment {
     RecyclerView recyclerView;
     FoodAdapter foodAdapter;
     List<FoodItemModel> list;
-
-    public FoodsFragment() {
-        // Required empty public constructor
+    private String name;
+    public FoodsFragment(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,37 +52,57 @@ public class FoodsFragment extends Fragment {
         HomeService homeService = ServiceBuilder.buildService(HomeService.class);
         Call<FoodResponse> call = homeService.getFoodCategory();
         System.out.println("API CONNECTING");
+        if (name.isEmpty())
+        {
+            System.out.println("Vào đây ở FoodFragment name empty");
 
-        call.enqueue(new Callback<FoodResponse>() {
-            @Override
-            public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
-                FoodResponse foodResponse = response.body();
-                System.out.println("API CONNECTED");
+            call.enqueue(new Callback<FoodResponse>() {
+                @Override
+                public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
+                    FoodResponse foodResponse = response.body();
+                    System.out.println("API CONNECTED");
 
-                if (response.isSuccessful()) {
-                    if (foodResponse != null) {
-                        List<FoodItemModel> products = foodResponse.getData();
-                        System.out.println(products);
+                    if (response.isSuccessful()) {
+                        if (foodResponse != null) {
+                            List<FoodItemModel> products = foodResponse.getData();
+                            System.out.println(products);
 
-                        foodAdapter = new FoodAdapter(products, getActivity().getApplicationContext());
-                        recyclerView.setAdapter(foodAdapter);
-                        System.out.println(products.toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
+                            foodAdapter = new FoodAdapter(products, getActivity().getApplicationContext());
+                            recyclerView.setAdapter(foodAdapter);
+                            System.out.println(products.toString());
+                            Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
 
-                    } else {
+                        } else {
 //                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FoodResponse> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(getActivity().getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<FoodResponse> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(getActivity().getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else{
+            System.out.println("Vào đây ở FoodFragment");
+            Call<FoodResponse> callWithName = homeService.getFoods(name, 1);
+            callWithName.enqueue(new Callback<FoodResponse>() {
+
+                @Override
+                public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
+                    FoodResponse foodResponse = response.body();
+                }
+
+                @Override
+                public void onFailure(Call<FoodResponse> call, Throwable t) {
+
+                }
+            });
+        }
 
         return view;
     }
