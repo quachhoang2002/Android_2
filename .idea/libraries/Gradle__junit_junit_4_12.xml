@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Gradle: junit:junit:4.12" external-system-id="GRADLE">
+  <library name="Gradle: junit:junit:4.12" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="junit" artifactId="junit" version="4.12" />
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/externalAnnotations/junit/junit/4.12-an1/junit-4.12-an1-annotations.zip!/" />
     </ANNOTATIONS>
