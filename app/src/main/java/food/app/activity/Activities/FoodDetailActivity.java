@@ -1,35 +1,30 @@
 package food.app.activity.Activities;
 
-import static android.app.PendingIntent.getActivity;
 
+import static java.security.AccessController.getContext;
+
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
+import android.widget.Toast;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Objects;
+import java.security.AccessControlContext;
+
 
 import food.app.activity.Models.CartModel;
 import food.app.activity.R;
 import food.app.activity.Services.CartService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,11 +39,13 @@ public class FoodDetailActivity extends AppCompatActivity {
     TextView ordernow;
     private static int food_id;
     private static float food_price_db;
+    private ShareRef shareRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
+        shareRef = new ShareRef(FoodDetailActivity.this);
 
         food_back = findViewById(R.id.food_back);
         food_back.setOnClickListener(new View.OnClickListener() {
@@ -87,22 +84,22 @@ public class FoodDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent orderFood = new Intent(Intent.ACTION_SENDTO);
                 CartModel cartModel = new CartModel();
-                cartModel.setProductId(2);
+                cartModel.setProductId(food_id);
                 cartModel.setQuantity(1);
-                cartModel.setUserId(1);
+                cartModel.setUser_id(1);
                 cartModel.setPrice(food_price_db);
-                cartModel.setCreatedAt("2023-10-22");
-
 
                 CartService cartService = ServiceBuilder.buildService(CartService.class);
                 Call<CartModel> call = cartService.addToCart(cartModel);
+
+                System.out.println(cartModel);
                 call.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                        System.out.println("Response: " +response);
                         if (response.isSuccessful()) {
-//                            String message = response.body();
-//                            System.out.println(message);
-                            System.out.println("Success");
+                            String message = response.message();
+                            Toast.makeText( FoodDetailActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                         } else {
                             try {
                                 String errorMessage = response.errorBody().string();
@@ -118,21 +115,6 @@ public class FoodDetailActivity extends AppCompatActivity {
                         System.out.println(t.getMessage());
                     }
                 });
-
-
-//                orderFood.setData(Uri.parse("mailto:"));
-//                Toast.makeText( getApplicationContext(), "acscascasc", Toast.LENGTH_LONG).show();
-//                String[] email = {"YourEmail@gmail.com", "", ""};
-//                String subject = "New Order for " + intent.getStringExtra("food_name" + "!");
-//                String text = "Order Details \n\n " + "Food Name: " + intent.getStringExtra("food_name" + "\nFood Price: " + intent.getFloatExtra("food_price")
-//                        + "Address: ");
-//                orderFood.putExtra(Intent.EXTRA_EMAIL, email);
-//                orderFood.putExtra(Intent.EXTRA_SUBJECT, subject);
-//                orderFood.putExtra(Intent.EXTRA_TEXT, text);
-//                if (orderFood.resolveActivity(getApplicationContext().getPackageManager()) != null) {
-//                    startActivity(orderFood);
-//                }
-
             }
         });
 

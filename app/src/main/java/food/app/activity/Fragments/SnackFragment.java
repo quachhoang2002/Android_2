@@ -18,6 +18,7 @@ import food.app.activity.Models.FoodResponse;
 import food.app.activity.R;
 import food.app.activity.Services.HomeService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +27,7 @@ public class SnackFragment extends Fragment {
     RecyclerView recyclerView;
     FoodAdapter foodAdapter;
     List<FoodItemModel> list;
+
 
     public SnackFragment() {
         // Required empty public constructor
@@ -36,6 +38,7 @@ public class SnackFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,8 +49,11 @@ public class SnackFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
+        ShareRef shareRef = new ShareRef(getActivity().getApplicationContext());
+        String name = shareRef.getSearchName();
+
         HomeService homeService = ServiceBuilder.buildService(HomeService.class);
-        Call<FoodResponse> call = homeService.getSnackCategory();
+        Call<FoodResponse> call = homeService.getFoods(name, 3);
         call.enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {

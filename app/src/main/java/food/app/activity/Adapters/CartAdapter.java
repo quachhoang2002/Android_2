@@ -45,8 +45,11 @@ import retrofit2.Response;
 public class CartAdapter extends ArrayAdapter<CartItemModel> {
     private ShareRef shareRef;
     private CartActivity cartActivity = new CartActivity();
-    public CartAdapter(Context context, List<CartItemModel> products) {
+
+
+    public CartAdapter(Context context, List<CartItemModel> products, CartActivity activity) {
         super(context, 0, products);
+        this.cartActivity = activity;
     }
 
     @Override
@@ -171,6 +174,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
 
             }
         });
+        System.out.println("Truoc khi xóa: " + cartActivity.productListView);
 
         deleteProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +188,6 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                     public void onClick(DialogInterface dialog, int id) {
 
 
-                        DeleteCartModel request = new DeleteCartModel(productId, userId);
                         Map<String, Object> requestBody = new HashMap<>();
                         requestBody.put("productId", productId);
                         requestBody.put("user_id", userId);
@@ -192,22 +195,13 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                         call.enqueue(new Callback<DeleteCartResponse>() {
                             @Override
                             public void onResponse(Call<DeleteCartResponse> call, Response<DeleteCartResponse> response) {
-                                System.out.println(response.code());
-                                System.out.println("con di me m");
                                 if (response.code() == 200) {
                                     DeleteCartResponse deleteCartResponse = response.body();
                                     assert deleteCartResponse != null;
                                     String message = deleteCartResponse.getMessage();
                                     System.out.println("Message: " + message);
                                     Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                                    cartActivity.productAdapter.notifyDataSetChanged();
-
-                                    if (cartActivity.productAdapter != null) {
-                                        cartActivity.productAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Intent intent = new Intent(getContext(), NoOrderActivity.class); // Sử dụng getContext() thay vì CartActivity.this
-                                        getContext().startActivity(intent);
-                                    }
+                                    deleteItem(productId);
                                 } else {
                                     System.out.println(response.body());
                                     Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
@@ -234,9 +228,19 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
         });
         return convertView;
     }
-
-    public interface CartItemUpdateListener {
-        void onItemQuantityChanged(int productId, int newQuantity);
+    public void deleteItem(int productId) {
+        for (CartItemModel item : cartActivity.productListView) {
+            if (item.getId() == productId) {
+                cartActivity.productListView.remove(item);
+                cartActivity.productAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
+        if (cartActivity.productListView.isEmpty()) {
+            Intent intent = new Intent(getContext(), NoOrderActivity.class);
+            getContext().startActivity(intent);
+        }
     }
+
 }
 
