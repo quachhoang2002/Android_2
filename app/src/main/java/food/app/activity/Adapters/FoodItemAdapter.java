@@ -1,5 +1,7 @@
 package food.app.activity.Adapters;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,12 +14,19 @@ import food.app.activity.Fragments.SnackFragment;
 public class FoodItemAdapter extends FragmentPagerAdapter {
 
     int tabCounts;
-    public String text;
+    private String text;
 
-    public FoodItemAdapter(@NonNull FragmentManager fm, int tabCounts, String text) {
+    public void SetName(String name) {
+        this.text = name;
+    }
+
+    public String GetName() {
+        return this.text;
+    }
+
+    public FoodItemAdapter(@NonNull FragmentManager fm, int tabCounts) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.tabCounts = tabCounts;
-        this.text = text;
     }
 
     @NonNull
@@ -25,7 +34,8 @@ public class FoodItemAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FoodsFragment("");
+                FoodsFragment fm = new FoodsFragment();
+                return fm;
             case 1:
                 return new DrinkFragment();
             case 2:
@@ -39,5 +49,11 @@ public class FoodItemAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return tabCounts;
     }
+
+    public void reloadTab(int position) {
+        System.out.println("reload tab");
+        notifyDataSetChanged();
+    }
+
 
 }

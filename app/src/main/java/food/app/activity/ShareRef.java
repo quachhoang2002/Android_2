@@ -62,4 +62,17 @@ public class ShareRef {
         editor.clear();
         editor.apply();
     }
+
+    public String setSearchName(String name) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("searchName", name);
+        editor.apply();
+        return name;
+    }
+
+    public String getSearchName() {
+        return sharedPreferences.getString("searchName", null);
+    }
 }
+
+

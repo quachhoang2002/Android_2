@@ -49,20 +49,24 @@ public class DashboardActivity extends AppCompatActivity {
     ViewPager viewPager;
     ImageView foodCart;
     FoodItemAdapter foodItemAdapter;
+
+    ShareRef shareRef;
     private EditText searchEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         if (!isConnected(this)) {
             showInternetDialog();
         }
 
+        shareRef = new ShareRef(this);
+
 
         //get name from shared preference
         String name = new ShareRef(this).getEmail();
-        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_SHORT).show();
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
@@ -71,11 +75,24 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Drink"), 1);
         tabLayout.addTab(tabLayout.newTab().setText("Snack"), 2);
         searchEdit = findViewById(R.id.food_search);
+
+        foodItemAdapter = new FoodItemAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(foodItemAdapter);
+
+        // Set the OnKeyListener for the searchEdit to listen for the Enter key press
         searchEdit.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    performSearch(tabLayout.getSelectedTabPosition());
+                    // Reload the current tab content
+                    shareRef.setSearchName(searchEdit.getText().toString().trim());
+
+                    int currentTabPosition = tabLayout.getSelectedTabPosition();
+                    foodItemAdapter.reloadTab(currentTabPosition);
+                    foodItemAdapter = new FoodItemAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                    viewPager.setAdapter(foodItemAdapter);
+                    viewPager.setCurrentItem(currentTabPosition);
+
                     return true;
                 }
                 return false;
@@ -84,12 +101,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final FoodItemAdapter adapter = new FoodItemAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),"");
-        viewPager.setAdapter(adapter);
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -116,13 +128,15 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
-    private void setDataTablayout(List<CategoryModel> categoryModels){
+
+    private void setDataTablayout(List<CategoryModel> categoryModels) {
         for (int i = 0; i < categoryModels.size(); i++) {
             CategoryModel categoryModel = categoryModels.get(i);
             tabLayout.addTab(tabLayout.newTab().setText(categoryModel.getName()), i);
             System.out.println(categoryModel.getName());
         }
     }
+
     private void showInternetDialog() {
 
         Dialog dialog = new Dialog(this);
@@ -154,9 +168,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
     }
+
     private Fragment performSearch(int position) {
         String searchText = searchEdit.getText().toString().trim();
-        return new FoodsFragment(searchText);
-
+        return new FoodsFragment();
     }
 }
