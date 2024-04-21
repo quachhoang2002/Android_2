@@ -21,6 +21,7 @@ import food.app.activity.Models.User;
 import food.app.activity.R;
 import food.app.activity.Services.ServiceBuilder;
 import food.app.activity.Services.UserService;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,8 +45,10 @@ public class ProfileActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logout_btn);
         updateBtn = findViewById(R.id.Update);
 
+        ShareRef shareRef = new ShareRef(this);
+
         UserService userService = ServiceBuilder.buildService(UserService.class);
-        Call<ResponseObject<User>> call = userService.getUserProfile(1);
+        Call<ResponseObject<User>> call = userService.getUserProfile(shareRef.getUserID());
         call.enqueue(new Callback<ResponseObject<User>>() {
             @Override
             public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {

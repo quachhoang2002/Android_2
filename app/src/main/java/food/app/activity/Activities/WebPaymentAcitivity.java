@@ -42,18 +42,10 @@ public class WebPaymentAcitivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("https://t.hoangdeptrai.online/api/payment/confirm")) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Intent to start DashboardActivity after delay
-                            Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
-                            startActivity(intent);
-                        }
-                    }, 200); // Delay in milliseconds, e.g., 2000ms for 2 seconds
-
+                    webView.loadUrl(url);
                     Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
                     startActivity(intent);
-                    return true; // Indicates you've handled the URL
+                    return true;
                 }
                 return false; // Let the WebView handle the URL
             }

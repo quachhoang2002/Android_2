@@ -1,6 +1,9 @@
-package food.app.activity.Request;
+package food.app.activity.Response;
 
-public class OrderRequest {
+import food.app.activity.Request.OrderRequest;
+
+public class OrderHistoryResponse {
+    private int id;
     private String customerName;
     private String shippingAddress;
     private String customerPhone;
@@ -8,27 +11,10 @@ public class OrderRequest {
     private int status;
     private double total_price;
     private User user;
-    private long createdAt;
-    private long updateAt;
+    private String createdAt;
+    private String updateAt;
 
-    // Default Constructor
-    public OrderRequest() {
-    }
-
-    // Parameterized Constructor
-    public OrderRequest(String customerName, String shippingAddress, String customerPhone,
-                        String email_receive, int status, double total_price, User user, long createdAt) {
-        this.customerName = customerName;
-        this.shippingAddress = shippingAddress;
-        this.customerPhone = customerPhone;
-        this.email_receive = email_receive;
-        this.status = status;
-        this.total_price = total_price;
-        this.user = user;
-        this.createdAt = createdAt;
-    }
-
-    public OrderRequest(String customerName, String shippingAddress, String customerPhone, String email_receive, int status, double total_price, User user, long createdAt, long updateAt) {
+    public OrderHistoryResponse(String customerName, String shippingAddress, String customerPhone, String email_receive, int status, double total_price, User user, String createdAt, String updateAt) {
         this.customerName = customerName;
         this.shippingAddress = shippingAddress;
         this.customerPhone = customerPhone;
@@ -40,7 +26,27 @@ public class OrderRequest {
         this.updateAt = updateAt;
     }
 
-    // Getters and setters
+    public OrderHistoryResponse(int id, String customerName, String shippingAddress, String customerPhone, String email_receive, int status, double total_price, User user, String createdAt, String updateAt) {
+        this.id = id;
+        this.customerName = customerName;
+        this.shippingAddress = shippingAddress;
+        this.customerPhone = customerPhone;
+        this.email_receive = email_receive;
+        this.status = status;
+        this.total_price = total_price;
+        this.user = user;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCustomerName() {
         return customerName;
     }
@@ -65,7 +71,7 @@ public class OrderRequest {
         this.customerPhone = customerPhone;
     }
 
-    public String getemail_receive() {
+    public String getEmail_receive() {
         return email_receive;
     }
 
@@ -81,7 +87,7 @@ public class OrderRequest {
         this.status = status;
     }
 
-    public double gettotal_price() {
+    public double getTotal_price() {
         return total_price;
     }
 
@@ -97,19 +103,19 @@ public class OrderRequest {
         this.user = user;
     }
 
-    public long getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public long getUpdateAt() {
+    public String getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(long updateAt) {
+    public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
     }
 
@@ -135,20 +141,4 @@ public class OrderRequest {
             this.id = id;
         }
     }
-
-    // toString method
-    @Override
-    public String toString() {
-        return "OrderRequest{" +
-                "customerName='" + customerName + '\'' +
-                ", shippingAddress='" + shippingAddress + '\'' +
-                ", customerPhone='" + customerPhone + '\'' +
-                ", email_receive='" + email_receive + '\'' +
-                ", status=" + status +
-                ", total_price=" + total_price +
-                ", user=" + user +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }
-
