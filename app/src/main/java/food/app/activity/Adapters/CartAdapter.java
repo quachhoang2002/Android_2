@@ -96,6 +96,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                     requestBody.put("user_id", userId);
                     System.out.println(requestBody);
                     Call<DeleteCartResponse> call = cartService.updateCartItem(requestBody);
+                    int finalCurrentQuantity = currentQuantity;
                     call.enqueue(new Callback<DeleteCartResponse>() {
                         @Override
                         public void onResponse(Call<DeleteCartResponse> call, Response<DeleteCartResponse> response) {
@@ -105,6 +106,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                                     String message = deleteCartResponse.getMessage();
                                     if (message != null) {
                                         System.out.println("Message: " + message);
+                                        productPrice.setText(String.format("$%.2f", product.getPrice() * finalCurrentQuantity));
                                         // Handle message appropriately
                                     } else {
                                         System.out.println("Response message is null");
@@ -134,12 +136,12 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
         increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentQuantity = Integer.parseInt(quantityTextView.getText().toString());
-                currentQuantity++;
-                quantityTextView.setText(String.valueOf(currentQuantity));
+                final int[] currentQuantity = {Integer.parseInt(quantityTextView.getText().toString())};
+                currentQuantity[0]++;
+                quantityTextView.setText(String.valueOf(currentQuantity[0]));
                 Map<String, Object> requestBody = new HashMap<>();
                 requestBody.put("id", productId);
-                requestBody.put("quantity", currentQuantity);
+                requestBody.put("quantity", currentQuantity[0]);
                 requestBody.put("user_id", userId);
                 System.out.println(requestBody);
                 Call<DeleteCartResponse> call = cartService.updateCartItem(requestBody);
@@ -152,6 +154,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                                 String message = deleteCartResponse.getMessage();
                                 if (message != null) {
                                     System.out.println("Message: " + message);
+                                    productPrice.setText(String.format("$%.2f", product.getPrice() * currentQuantity[0]));
                                     Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 
                                 } else {
@@ -165,6 +168,9 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                         } else {
                             System.out.println("Response is not successful");
                             // Handle unsuccessful response
+                            Toast.makeText(getContext(), "Sản phẩm đã hết hàng", Toast.LENGTH_SHORT).show();
+                            productPrice.setText(String.format("$%.2f", product.getPrice() * --currentQuantity[0]));
+                            quantityTextView.setText(String.valueOf(currentQuantity[0]));
                         }
                     }
 

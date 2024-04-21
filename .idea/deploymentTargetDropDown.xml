@@ -2,23 +2,21 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="DashboardActivity">
-        <State />
-      </entry>
-      <entry key="LoginFBActivity">
-        <State />
-      </entry>
-      <entry key="ProfileActivity">
-        <State />
-      </entry>
-      <entry key="SplashActivity">
-        <State />
-      </entry>
-      <entry key="WebPaymentAcitivity">
-        <State />
-      </entry>
       <entry key="app">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="emulator-5554" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-21T11:37:26.382408900Z" />
+        </State>
       </entry>
     </value>
   </component>

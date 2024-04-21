@@ -23,5 +23,6 @@
     <string name="facebook_app_id">7554945684555688</string>
     <string name="fb_login_protocol_scheme">fb7554945684555688</string>
     <string name="facebook_client_token">w5G662mc4o81BUzLaFO2xjZlnHw=</string>
+    <string name="title_activity_history_order">HistoryOrderActivity</string>
 
 </resources>
