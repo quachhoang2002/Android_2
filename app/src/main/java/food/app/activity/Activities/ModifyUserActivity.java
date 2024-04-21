@@ -31,7 +31,7 @@ public class ModifyUserActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView profileImage;
-    private EditText etName, etPhone, etEmail;
+    private EditText etName, etPhone, etEmail, etPass, etComfirmPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,8 @@ public class ModifyUserActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etMail);
+        etPass = findViewById(R.id.etPass);
+        etComfirmPass = findViewById(R.id.etComfirmPass);
 
         getBundleData(bundle);
     }
@@ -56,6 +58,14 @@ public class ModifyUserActivity extends AppCompatActivity {
     public void saveProfile(View view) {
     //Viet vo day nua ne
         User user = new User(bundle.getInt("Id"), etName.getText().toString(), etEmail.getText().toString(), etPhone.getText().toString());
+
+        if(etPass.getText().toString().equals(etComfirmPass.getText().toString())) {
+            if(!"".equals(etPass.getText().toString()))
+                user.setPassword(etPass.getText().toString());
+        }
+        else {
+            Toast.makeText(ModifyUserActivity.this,"Nhập lại mật khẩu không trùng với mật khẩu vừa nhập", Toast.LENGTH_LONG).show();
+        }
 
         UserService userService = ServiceBuilder.buildService(UserService.class);
         Call<ResponseObject<User>> call = userService.editUser(user);

@@ -19,6 +19,7 @@ import food.app.activity.R;
 import food.app.activity.Services.CategoryService;
 import food.app.activity.Services.HomeService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +31,8 @@ public class FoodsFragment extends Fragment {
     List<FoodItemModel> list;
 
     public FoodsFragment() {
-        // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,14 +46,15 @@ public class FoodsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_foods, container, false);
 
         recyclerView = view.findViewById(R.id.food_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
+        LinearLayoutManager manager  =new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        HomeService homeService = ServiceBuilder.buildService(HomeService.class);
-        Call<FoodResponse> call = homeService.getFoodCategory();
-        System.out.println("API CONNECTING");
+        ShareRef shareRef = new ShareRef(getActivity().getApplicationContext());
+        String name = shareRef.getSearchName();
 
+        HomeService homeService = ServiceBuilder.buildService(HomeService.class);
+        Call<FoodResponse> call = homeService.getFoods(name,1);
         call.enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
@@ -83,6 +85,7 @@ public class FoodsFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         return view;
     }

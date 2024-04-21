@@ -6,18 +6,17 @@ public class CartModel {
     private int productId;
     private int quantity;
     private double price;
-    private int userId;
-    private String createdAt;
+    private int user_id;
+
 
     public CartModel() {
     }
 
-    public CartModel(int productId, int quantity, double price, int userId, String createdAt) {
+    public CartModel(int productId, int quantity, double price, int user_id) {
         this.productId = productId;
         this.quantity = quantity;
         this.price = price;
-        this.userId = userId;
-        this.createdAt = createdAt;
+        this.user_id = user_id;
     }
 
     public int getProductId() {
@@ -44,19 +43,11 @@ public class CartModel {
         this.price = price;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

@@ -108,6 +108,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"/>
 
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:backgroundTint="#FF4081"
+        android:hint="New Password"
+        android:textColor="#000000"
+        android:textColorHint="#8C8C8C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
+
+    <EditText
+        android:id="@+id/etComfirmPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:backgroundTint="#FF4081"
+        android:hint="Comfirm password"
+        android:textColor="#000000"
+        android:textColorHint="#8C8C8C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
+
     <TextView
         android:id="@+id/Save"
         android:layout_width="314dp"
