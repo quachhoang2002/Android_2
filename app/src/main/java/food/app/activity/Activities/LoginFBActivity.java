@@ -1,5 +1,6 @@
 package food.app.activity.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,10 +42,13 @@ public class LoginFBActivity extends AppCompatActivity {
 
     ShareRef shareRef;
 
+    public String email, name, id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        shareRef = new ShareRef(getApplicationContext());
+        Context context = getApplicationContext();
+        shareRef = new ShareRef(context);
 
 
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
@@ -57,43 +61,6 @@ public class LoginFBActivity extends AppCompatActivity {
 
                         getUserProfile(loginResult.getAccessToken());
 
-
-                        FacebookInformation facebookInformation = Facebook.getFacebookInformation(getApplicationContext());
-                        FacebookLoginRequest req = new FacebookLoginRequest(facebookInformation.getEmail(), "", facebookInformation.getName(), "facebook");
-                        LoginService loginService = ServiceBuilder.buildService(LoginService.class);
-                        Call<LoginResponse> call = loginService.loginWithFacebook(req);
-                        Log.d("LOGIN_POST", "onSuccess: " + req.toString());
-                        call.enqueue(new retrofit2.Callback<LoginResponse>() {
-                            @Override
-                            public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
-                                Log.d("API_SUCCESS", response.toString());
-                                if (response.isSuccessful()) {
-                                    LoginResponse paymentResponse = response.body();
-                                    Log.d("API_SUCCESS", paymentResponse.toString());
-                                    Log.d("API_SUCCESS", paymentResponse.getData().name);
-                                    Log.d("API_SUCCESS", paymentResponse.getData().email);
-                                    Log.d("API_SUCCESS", String.valueOf(paymentResponse.getData().id));
-
-
-                                    //set to shared preferences
-                                    shareRef.saveToken(paymentResponse.getData().token);
-                                    shareRef.saveUserInformation(paymentResponse.getData().id, paymentResponse.getData().email, paymentResponse.getData().phone);
-
-                                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                                Log.d("API_FAILURE", t.toString());
-                                Toast.makeText(getApplicationContext(), "Failed to login", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
                     }
 
                     @Override
@@ -132,14 +99,16 @@ public class LoginFBActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
-                            String name = object.getString("name");
-                            String email = object.has("email") ? object.getString("email") : "Email not available";
+                            name = object.getString("name");
+                            email = object.has("email") ? object.getString("email") : "Email not available";
                             // Process other fields as needed...
 
                             // Here you can use the obtained user data
                             Log.d("Facebook", "onCompleted: " + email + " " + name);
                             Log.d("Facebook", "onCompleted: " + object.toString());
-                            shareRef.saveFacebookUserInformation(email, "", accessToken.getToken());
+
+                            loginToMyApp(email, name);
+
                         } catch (Exception e) {
                             Log.d("Facebook", "onCompleted: " + e.toString());
                             e.printStackTrace();
@@ -151,6 +120,42 @@ public class LoginFBActivity extends AppCompatActivity {
         parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    private void loginToMyApp(String email,String name){
+        FacebookLoginRequest req = new FacebookLoginRequest(email, "", name, "facebook");
+        LoginService loginService = ServiceBuilder.buildService(LoginService.class);
+        Call<LoginResponse> call = loginService.loginWithFacebook(req);
+        Log.d("LOGIN_POST", "onSuccess: " + req.toString());
+        call.enqueue(new retrofit2.Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
+                Log.d("API_SUCCESS", response.toString());
+                if (response.isSuccessful()) {
+                    LoginResponse paymentResponse = response.body();
+                    Log.d("API_SUCCESS", paymentResponse.toString());
+                    Log.d("API_SUCCESS", paymentResponse.getData().name);
+                    Log.d("API_SUCCESS", paymentResponse.getData().email);
+                    Log.d("API_SUCCESS", String.valueOf(paymentResponse.getData().id));
+                    //set to shared preferences
+                    shareRef.saveToken(paymentResponse.getData().token);
+                    shareRef.saveUserInformation(paymentResponse.getData().id, paymentResponse.getData().email, paymentResponse.getData().phone);
+
+                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("API_FAILURE", t.toString());
+                Toast.makeText(getApplicationContext(), "Failed to login", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }

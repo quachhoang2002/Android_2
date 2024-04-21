@@ -49,6 +49,9 @@ public class DashboardActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ImageView foodCart;
+
+    ImageView user_profile;
+
     FoodItemAdapter foodItemAdapter;
 
     ShareRef shareRef;
@@ -65,13 +68,13 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         shareRef = new ShareRef(this);
-        shareRef.removeSearchName();
-
-        if (shareRef.getUserID() == 0) {
+        if (!shareRef.isLogin()){
             Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
+
+        shareRef.removeSearchName();
         Log.d("TOKEN", shareRef.getToken());
 
 
@@ -135,6 +138,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        user_profile = findViewById(R.id.menu_user);
+        user_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setDataTablayout(List<CategoryModel> categoryModels) {

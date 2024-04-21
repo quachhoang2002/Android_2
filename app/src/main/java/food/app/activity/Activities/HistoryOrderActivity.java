@@ -21,6 +21,7 @@ import food.app.activity.R;
 import food.app.activity.Response.OrderHistoryResponse;
 import food.app.activity.Services.OrderService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,7 +54,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HistoryOrderActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(HistoryOrderActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -62,9 +63,8 @@ public class HistoryOrderActivity extends AppCompatActivity {
     }
     public void loadData(){
         OrderService orderService = ServiceBuilder.buildService(OrderService.class);
-//        ShareRef shareRef = new ShareRef(this);
-        int userId = 1;
-
+        ShareRef shareRef = new ShareRef(this);
+        int userId = shareRef.getUserID();
 
         Call<ResponseObject<List<OrderHistoryResponse>>> call = orderService.getOrderByUserId(userId);
         call.enqueue(new Callback<ResponseObject<List<OrderHistoryResponse>>>() {
@@ -79,7 +79,8 @@ public class HistoryOrderActivity extends AppCompatActivity {
                                 item.getShippingAddress(),
                                 item.getCustomerPhone(),
                                 item.getEmail_receive(),
-                                item.getTotal_price()
+                                item.getTotal_price(),
+                                item.getStatus()
                         ));
                     });
                 }

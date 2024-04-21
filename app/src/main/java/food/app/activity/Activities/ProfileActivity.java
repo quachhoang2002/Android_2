@@ -8,8 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,8 +32,10 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView profileImage;
     TextView profileName, profilePhone, profileMail;
     TextView orderBtn, logoutBtn, updateBtn;
+    ImageButton backBtn;
 
     Bundle userBundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,9 @@ public class ProfileActivity extends AppCompatActivity {
         profileMail = findViewById(R.id.profile_mail);
 
         logoutBtn = findViewById(R.id.logout_btn);
+        backBtn = findViewById(R.id.back_btn);
         updateBtn = findViewById(R.id.Update);
+        orderBtn = findViewById(R.id.to_order_btn);
 
         ShareRef shareRef = new ShareRef(this);
 
@@ -53,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseObject<User>> call, Response<ResponseObject<User>> response) {
                 ResponseObject<User> body = response.body();
-                if(body.getStatus().equals("success")) {
+                if (body.getStatus().equals("success")) {
                     Log.i("ProfileActivity", "Success");
                     User user = body.getData();
                     profileName.setText(user.getName());
@@ -61,8 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
                     profileMail.setText("Mail: " + user.getEmail());
 
                     userBundle = setBundle(user);
-                }
-                else {
+                } else {
                     System.out.println("Error: " + body.getMessage());
                 }
             }
@@ -72,6 +77,34 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.e("ProfileActivity", "Error: \n" + t.toString());
             }
         });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareRef.clear();
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, DashboardActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, HistoryOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onClick(View v) {
@@ -87,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
         bundle.putString("Phone", user.getPhone());
         bundle.putString("Mail", user.getEmail());
 
-        Bitmap bitmap = ((BitmapDrawable)profileImage.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         bundle.putByteArray("Avatar", stream.toByteArray());

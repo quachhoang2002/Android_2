@@ -68,9 +68,6 @@ public class FoodsFragment extends Fragment {
 
                         foodAdapter = new FoodAdapter(products, getActivity().getApplicationContext());
                         recyclerView.setAdapter(foodAdapter);
-                        System.out.println(products.toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
-
                     } else {
 //                        Toast.makeText(getActivity().getApplicationContext(), "Empty response", Toast.LENGTH_SHORT).show();
                     }

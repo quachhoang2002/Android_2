@@ -34,7 +34,6 @@ public class ShareRef {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
         editor.putString("phone", phone);
-        editor.putString("token", token);
         //is facebook login
         editor.putBoolean("isFacebook", true);
         editor.apply();
@@ -54,6 +53,10 @@ public class ShareRef {
 
     public Integer getUserID() {
         return Integer.parseInt(sharedPreferences.getString("userID", null));
+    }
+
+    public boolean isLogin() {
+        return sharedPreferences.getString("userID", null) != null;
     }
 
     //clear
