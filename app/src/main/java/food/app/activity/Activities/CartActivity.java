@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ import food.app.activity.Models.FoodItemModel;
 import food.app.activity.R;
 import food.app.activity.Services.CartService;
 import food.app.activity.Services.ServiceBuilder;
+import food.app.activity.ShareRef;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,10 +53,22 @@ public class CartActivity extends AppCompatActivity  {
             }
         });
 
+        TextView starOrder = findViewById(R.id.starOrder);
+        starOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, CheckoutDeliveryActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     public void loadData(){
         CartService cartService = ServiceBuilder.buildService(CartService.class);
-        Call<CartResponse> call = cartService.getCartByUserId(1);
+        ShareRef shareRef = new ShareRef(this);
+        int userId = shareRef.getUserID();
+
+        Call<CartResponse> call = cartService.getCartByUserId(userId);
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {

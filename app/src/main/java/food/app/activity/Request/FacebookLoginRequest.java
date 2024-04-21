@@ -54,4 +54,16 @@ public class FacebookLoginRequest {
         this.providerName = providerName;
     }
 
+    //toString
+    @Override
+    public String toString() {
+        return "FacebookLoginRequest{" +
+                "email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", providerName='" + providerName + '\'' +
+                ", isThirdParty=" + isThirdParty +
+                '}';
+    }
+
 }

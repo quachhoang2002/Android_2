@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import food.app.activity.Activities.CartActivity;
+import food.app.activity.Activities.CheckoutPaymentActivity;
 import food.app.activity.Activities.NoOrderActivity;
 import food.app.activity.Models.CartItemModel;
 import food.app.activity.Models.DeleteCartModel;
@@ -68,7 +69,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
         TextView quantityTextView = convertView.findViewById(R.id.quantityTextView);
 
         int productId = product.getId();
-        int userId = 1;
+        int userId = shareRef.getUserID();
 
         if (product != null) {
             Picasso.get().load(product.getImageResId()).into(productImage);
@@ -80,6 +81,7 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
         Button decreaseQuantityButton = convertView.findViewById(R.id.decreaseQuantityButton);
         Button increaseQuantityButton = convertView.findViewById(R.id.increaseQuantityButton);
         ImageButton deleteProductButton = convertView.findViewById(R.id.deleteProductButton);
+
 
         decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +228,8 @@ public class CartAdapter extends ArrayAdapter<CartItemModel> {
                 dialog.show();
             }
         });
+
+
         return convertView;
     }
     public void deleteItem(int productId) {

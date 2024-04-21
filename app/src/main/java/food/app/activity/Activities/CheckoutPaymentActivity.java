@@ -104,22 +104,22 @@ public class CheckoutPaymentActivity extends AppCompatActivity {
                         Log.d("API_SUCCESS", response.toString());
                         if (response.isSuccessful()) {
                             Log.d("API_SUCCESS_asdsad", response.body().toString());
-                            OrderResponse cartResponse = response.body();
-                            Double totalPrice = cartResponse.getData().totalPrice;
+                            OrderResponse orderRsp = response.body();
+                            Double totalPrice = orderRsp.getData().totalPrice;
                             String totalStr = String.valueOf(totalPrice);
                             textTotal.setText("Total: " + totalStr + " VND");
                             String total = totalCost.getText().toString();
                             if (paymentMethod.equals("Card")) {
-                                Integer id = cartResponse.getData().id;
+                                Integer id = orderRsp.getData().id;
                                 Intent intent = new Intent(CheckoutPaymentActivity.this, WebPaymentAcitivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("order_id", id);
+                                intent.putExtra("amount", totalPrice);
                                 startActivity(intent);
                                 finish();
 
                             } else {
                                  //back to dashboard
                                 Intent intent = new Intent(CheckoutPaymentActivity.this, DashboardActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();
                             }

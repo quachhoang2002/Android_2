@@ -73,6 +73,13 @@ public class ShareRef {
     public String getSearchName() {
         return sharedPreferences.getString("searchName", null);
     }
+
+    //remove search name
+    public void removeSearchName() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("searchName");
+        editor.apply();
+    }
 }
 
 

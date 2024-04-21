@@ -2,9 +2,11 @@ package food.app.activity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,13 +29,35 @@ public class WebPaymentAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_web_page);
 
         webView = findViewById(R.id.payment_webview);
-        fetchPaymentPage();
+
+        int orderID = getIntent().getIntExtra("order_id", 0);
+        fetchPaymentPage(orderID);
     }
 
 
     private void showWebPage(String url) {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("https://t.hoangdeptrai.online/api/payment/confirm")) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Intent to start DashboardActivity after delay
+                            Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                        }
+                    }, 200); // Delay in milliseconds, e.g., 2000ms for 2 seconds
+
+                    Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
+                    startActivity(intent);
+                    return true; // Indicates you've handled the URL
+                }
+                return false; // Let the WebView handle the URL
+            }
+        });
         webView.loadUrl(url);
     }
 
@@ -48,12 +72,14 @@ public class WebPaymentAcitivity extends AppCompatActivity {
 
 
     //call to get the payment response
-    private void fetchPaymentPage() {
+    private void fetchPaymentPage(int orderID) {
         PaymentService paymentService = ServiceBuilder.buildService(PaymentService.class);
         String token = getToken();
         PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setOrderID(3);
+        paymentRequest.setOrderID(orderID);
         paymentRequest.setOrderInfo("Order Info");
+
+        Log.d("API_PARAMS", paymentRequest.toString());
 
         Call<PaymentResponse> call = paymentService.submitPayment(token, paymentRequest);
         call.enqueue(new Callback<PaymentResponse>() {
@@ -66,7 +92,9 @@ public class WebPaymentAcitivity extends AppCompatActivity {
                     Log.d("API_SUCCESS", paymentResponse.getData().getPaymentURL());
                     showWebPage(paymentResponse.getData().getPaymentURL());
                 } else {
-                    // Handle failure
+                    Toast.makeText(WebPaymentAcitivity.this, "Failed to get payment page", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(WebPaymentAcitivity.this, DashboardActivity.class);
+                    startActivity(intent);
                 }
             }
 

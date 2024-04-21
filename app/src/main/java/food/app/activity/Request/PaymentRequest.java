@@ -24,5 +24,13 @@ public class PaymentRequest {
         this.orderInfo = orderInfo;
     }
 
+    @Override
+    public String toString() {
+        return "PaymentRequest{" +
+                "orderID=" + orderID +
+                ", orderInfo='" + orderInfo + '\'' +
+                '}';
+    }
+
 
 }
