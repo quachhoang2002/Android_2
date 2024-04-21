@@ -67,7 +67,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         food_price.setText(String.valueOf(food_price_db) + "$");
         String imageUrl = intent.getStringExtra("food_image");
         imageUrl = imageUrl.replace("http://", "https://");
-        food_id = intent.getIntExtra("food_id",0);
+        food_id = intent.getIntExtra("food_id", 0);
         System.out.println("Imasdasd " + imageUrl);
         Picasso.get()
                 .load(imageUrl)
@@ -86,7 +86,7 @@ public class FoodDetailActivity extends AppCompatActivity {
                 CartModel cartModel = new CartModel();
                 cartModel.setProductId(food_id);
                 cartModel.setQuantity(1);
-                cartModel.setUser_id(1);
+                cartModel.setUser_id(shareRef.getUserID());
                 cartModel.setPrice(food_price_db);
 
                 CartService cartService = ServiceBuilder.buildService(CartService.class);
@@ -96,13 +96,15 @@ public class FoodDetailActivity extends AppCompatActivity {
                 call.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        System.out.println("Response: " +response);
+                        System.out.println("Response: " + response);
                         if (response.isSuccessful()) {
                             String message = response.message();
-                            Toast.makeText( FoodDetailActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FoodDetailActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                         } else {
                             try {
                                 String errorMessage = response.errorBody().string();
+                                //get message property from json
+                                Toast.makeText(FoodDetailActivity.this, "San pham da het hang!", Toast.LENGTH_SHORT).show();
                                 System.out.println("Error: " + errorMessage);
                             } catch (IOException e) {
                                 e.printStackTrace();

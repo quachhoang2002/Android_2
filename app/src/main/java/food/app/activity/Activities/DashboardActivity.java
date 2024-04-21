@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,15 +59,22 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+
         if (!isConnected(this)) {
             showInternetDialog();
         }
 
         shareRef = new ShareRef(this);
+        shareRef.removeSearchName();
+
+        if (shareRef.getUserID() == 0) {
+            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        Log.d("TOKEN", shareRef.getToken());
 
 
-        //get name from shared preference
-        String name = new ShareRef(this).getEmail();
 
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
